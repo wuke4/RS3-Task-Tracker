@@ -16,8 +16,14 @@
   </header>
 
   <main>
+      <!-- Tabs Navigation -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="daily-tasks">Daily Tasks</button>
+    <button class="tab-btn" data-tab="weekly-tasks">Weekly Tasks</button>
+    <button class="tab-btn" data-tab="monthly-tasks">Monthly Tasks</button>
+  </div>
     <!-- Daily Tasks -->
-    <div id="daily-tasks">
+    <div id="daily-tasks" class="tab-content active">
       <h2>Daily Tasks</h2>
       <ul>
         <li class="task" data-task="jack-of-trades">
@@ -143,7 +149,7 @@
     </div>
 
     <!-- Weekly Tasks -->
-    <div id="weekly-tasks">
+    <div id="weekly-tasks" class="tab-content">
       <h2>Weekly Tasks</h2>
       <ul>
         <li class="task" data-task="herby-werby">
@@ -234,7 +240,7 @@
     </div>
 
     <!-- Monthly Tasks -->
-    <div id="monthly-tasks">
+    <div id="monthly-tasks" class="tab-content">
       <h2>Monthly Tasks</h2>
       <ul>
         <li class="task" data-task="troll-invasion">
@@ -273,3 +279,4 @@
   </script>
 </body>
 </html>
+
