@@ -16,84 +16,134 @@
   </header>
 
   <main>
-    <div id="task-list">
+    <!-- Daily Tasks -->
+    <div id="daily-tasks">
       <h2>Daily Tasks</h2>
       <ul>
         <li class="task" data-task="jack-of-trades">
           <button class="task-btn">Jack of Trades</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <input type="checkbox" id="jack-of-trades" onclick="toggleComplete(this)">
-            <label for="jack-of-trades">Jack of Trades</label>
             <a href="https://runescape.wiki/w/Jack_of_trades_aura" target="_blank" class="info-link">More Info</a>
-            <p>Notes: Player-owned Ports, Guthixian Cache (two per day)</p>
+          </div>
+        </li>
+        <li class="task" data-task="player-owned-ports">
+          <button class="task-btn">Player-Owned Ports</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Manage voyages and crew members daily.</p>
+          </div>
+        </li>
+        <li class="task" data-task="guthixian-cache">
+          <button class="task-btn">Guthixian Cache (2 per day)</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Participate twice daily for Divination XP.</p>
           </div>
         </li>
         <li class="task" data-task="player-owned-farm">
           <button class="task-btn">Player-Owned Farm</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Check Beehives and POF animals.</p>
+            <p>Notes: Check beehives and farm animals daily.</p>
           </div>
         </li>
         <li class="task" data-task="shop-run">
           <button class="task-btn">Shop Run</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Insulated Boots, Scimitars, Broad Arrowheads, Bloodweed Seeds, Runes, Vials of Water + Herblore Secondaries.</p>
+            <p>Notes: Insulated Boots, Scimitars, Broad Arrowheads, Bloodweed Seeds, Runes, Vials of Water, and Herblore Secondaries.</p>
           </div>
         </li>
         <li class="task" data-task="potato-cactus">
           <button class="task-btn">Potato Cactus</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Desert Diaries</p>
+            <p>Notes: Desert Diaries.</p>
           </div>
         </li>
         <li class="task" data-task="wicked-hood">
           <button class="task-btn">Wicked Hood</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Fire Runes</p>
+            <p>Notes: Use the hood for Fire Runes and other free runes.</p>
+          </div>
+        </li>
+        <li class="task" data-task="vis-wax">
+          <button class="task-btn">Vis Wax</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Create Vis Wax daily for GP or personal use.</p>
+          </div>
+        </li>
+        <li class="task" data-task="buckets-of-slime">
+          <button class="task-btn">Buckets of Slime</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Morytania Diaries.</p>
           </div>
         </li>
         <li class="task" data-task="nemi-forest">
           <button class="task-btn">Nemi Forest</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Mine Sandstone in Oo'glog & Prifddinas.</p>
+            <p>Notes: Explore the forest for XP and resources.</p>
+          </div>
+        </li>
+        <li class="task" data-task="mine-sandstone">
+          <button class="task-btn">Mine Sandstone</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Mine sandstone in Oo'glog and Prifddinas.</p>
+          </div>
+        </li>
+        <li class="task" data-task="gorajo-dungeon">
+          <button class="task-btn">Gorajo Dungeon</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Yak card + Divine Location.</p>
           </div>
         </li>
         <li class="task" data-task="reaper-task">
           <button class="task-btn">Reaper Task</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Complete daily Reaper task.</p>
+            <p>Notes: Complete the assigned boss kill daily for Reaper points.</p>
           </div>
         </li>
         <li class="task" data-task="travelling-merchant">
           <button class="task-btn">Travelling Merchant</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Goebie Burial Charms, Slayer VIP Coupons, Sacred Clay, Deathtouched Dart.</p>
+            <p>Notes: Goebie Burial Charms, Unstable Air Rune, Anima Crystal, Slayer VIP Coupon, Distraction & Diversion Reset Tokens, Sacred Clay (optional), Livid Plant, Gift for the Reaper, Dragonkin Lamp, Dungeoneering Wildcard, Deathtouched Dart (optional).</p>
           </div>
         </li>
         <li class="task" data-task="daily-challenges">
           <button class="task-btn">Daily Challenges</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: All XP from combat challenges should go into Ranged.</p>
+            <p>Notes: Assign all combat challenge XP to Ranged.</p>
           </div>
         </li>
-        <li class="task" data-task="city-of-um">
+        <li class="task" data-task="soul-obelisk">
+          <button class="task-btn">Soul Obelisk</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Daily activity at the Soul Obelisk.</p>
+          </div>
+        </li>
+        <li class="task" data-task="city-of-um-free-supplies">
           <button class="task-btn">City of Um Free Supplies</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Underworld easy/medium diaries, Buckets of Slime (Morytania diaries).</p>
+            <p>Notes: Underworld easy/medium diaries.</p>
           </div>
         </li>
       </ul>
+    </div>
 
+    <!-- Weekly Tasks -->
+    <div id="weekly-tasks">
       <h2>Weekly Tasks</h2>
       <ul>
         <li class="task" data-task="herby-werby">
@@ -103,7 +153,7 @@
             <p>Notes: Weekly activity in Herby Werby minigame.</p>
           </div>
         </li>
-        <li class="task" data-task="penguin-hide-seek">
+        <li class="task" data-task="penguin-hide-and-seek">
           <button class="task-btn">Penguin Hide and Seek</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
@@ -114,7 +164,7 @@
           <button class="task-btn">Tears of Guthix</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Weekly minigame.</p>
+            <p>Notes: Weekly activity.</p>
           </div>
         </li>
         <li class="task" data-task="circus">
@@ -149,45 +199,77 @@
           <button class="task-btn">Fort Forinthry</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Weekly XP claim.</p>
+            <p>Notes: Weekly XP Claim.</p>
+          </div>
+        </li>
+        <li class="task" data-task="totems-anachronia">
+          <button class="task-btn">Totems Anachronia</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Check for Anachronia Totems.</p>
+          </div>
+        </li>
+        <li class="task" data-task="thalmunds-wares">
+          <button class="task-btn">Thalmund's Wares</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Weekly task from Thalmund's shop.</p>
+          </div>
+        </li>
+        <li class="task" data-task="water-filtration-system">
+          <button class="task-btn">Water Filtration System</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Weekly Anachronia task.</p>
+          </div>
+        </li>
+        <li class="task" data-task="megs-questions">
+          <button class="task-btn">Meg's Questions</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Answer Meg's weekly questions.</p>
           </div>
         </li>
       </ul>
+    </div>
 
+    <!-- Monthly Tasks -->
+    <div id="monthly-tasks">
       <h2>Monthly Tasks</h2>
       <ul>
         <li class="task" data-task="troll-invasion">
           <button class="task-btn">Troll Invasion</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Monthly event.</p>
+            <p>Notes: Monthly event for combat XP rewards.</p>
           </div>
         </li>
         <li class="task" data-task="giant-oyster">
           <button class="task-btn">Giant Oyster</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Monthly event.</p>
+            <p>Notes: Monthly D&D with Fishing and Farming XP.</p>
           </div>
         </li>
         <li class="task" data-task="god-statues">
           <button class="task-btn">God Statues</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Monthly task.</p>
+            <p>Notes: Build God Statues for Prayer/Construction XP.</p>
           </div>
         </li>
         <li class="task" data-task="effigy-incubator">
           <button class="task-btn">Effigy Incubator</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Monthly task.</p>
+            <p>Notes: Monthly event for effigy creation.</p>
           </div>
         </li>
       </ul>
     </div>
   </main>
 
-  <script src="script.js"></script>
+  <script src="script.js">
+  </script>
 </body>
 </html>
