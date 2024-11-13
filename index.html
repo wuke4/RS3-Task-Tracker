@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RuneScape 3 Ironman Task Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>RuneScape 3 Ironman Task Tracker</h1>
+    <div id="timers">
+      <p>Weekly Reset: <span id="weekly-timer"></span></p>
+      <p>Daily Reset: <span id="daily-timer"></span></p>
+    </div>
+  </header>
+
+  <main>
+    <div id="task-list">
+      <h2>Daily Tasks</h2>
+      <ul>
+        <li class="task" data-task="jack-of-trades">
+          <button class="task-btn">Jack of Trades</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Player-owned Ports, Guthixian Cache (two per day)</p>
+          </div>
+        </li>
+        <li class="task" data-task="player-owned-farm">
+          <button class="task-btn">Player-Owned Farm</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Check Beehives and POF animals.</p>
+          </div>
+        </li>
+        <li class="task" data-task="shop-run">
+          <button class="task-btn">Shop Run</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Insulated Boots, Scimitars, Broad Arrowheads, Bloodweed Seeds, Runes, Vials of Water + Herblore Secondaries.</p>
+          </div>
+        </li>
+        <li class="task" data-task="potato-cactus">
+          <button class="task-btn">Potato Cactus</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Desert Diaries</p>
+          </div>
+        </li>
+        <li class="task" data-task="wicked-hood">
+          <button class="task-btn">Wicked Hood</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Fire Runes</p>
+          </div>
+        </li>
+        <li class="task" data-task="nemi-forest">
+          <button class="task-btn">Nemi Forest</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Mine Sandstone in Oo'glog & Prifddinas.</p>
+          </div>
+        </li>
+        <li class="task" data-task="reaper-task">
+          <button class="task-btn">Reaper Task</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Complete daily Reaper task.</p>
+          </div>
+        </li>
+        <li class="task" data-task="travelling-merchant">
+          <button class="task-btn">Travelling Merchant</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Goebie Burial Charms, Slayer VIP Coupons, Sacred Clay, Deathtouched Dart.</p>
+          </div>
+        </li>
+        <li class="task" data-task="daily-challenges">
+          <button class="task-btn">Daily Challenges</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: All XP from combat challenges should go into Ranged.</p>
+          </div>
+        </li>
+        <li class="task" data-task="city-of-um">
+          <button class="task-btn">City of Um Free Supplies</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Underworld easy/medium diaries, Buckets of Slime (Morytania diaries).</p>
+          </div>
+        </li>
+      </ul>
+
+      <h2>Weekly Tasks</h2>
+      <ul>
+        <li class="task" data-task="herby-werby">
+          <button class="task-btn">Herby Werby</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Weekly activity in Herby Werby minigame.</p>
+          </div>
+        </li>
+        <li class="task" data-task="penguin-hide-seek">
+          <button class="task-btn">Penguin Hide and Seek</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Weekly minigame.</p>
+          </div>
+        </li>
+        <li class="task" data-task="tears-of-guthix">
+          <button class="task-btn">Tears of Guthix</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Weekly minigame.</p>
+          </div>
+        </li>
+        <li class="task" data-task="circus">
+          <button class="task-btn">Circus</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Weekly minigame.</p>
+          </div>
+        </li>
+        <li class="task" data-task="managing-miscellania">
+          <button class="task-btn">Managing Miscellania</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Mahogany > Maples.</p>
+          </div>
+        </li>
+        <li class="task" data-task="agoroth">
+          <button class="task-btn">Agoroth</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Weekly task.</p>
+          </div>
+        </li>
+        <li class="task" data-task="familiarisation">
+          <button class="task-btn">Familiarisation</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Outfit > Double Charms.</p>
+          </div>
+        </li>
+        <li class="task" data-task="fort-forinthry">
+          <button class="task-btn">Fort Forinthry</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Weekly XP claim.</p>
+          </div>
+        </li>
+      </ul>
+
+      <h2>Monthly Tasks</h2>
+      <ul>
+        <li class="task" data-task="troll-invasion">
+          <button class="task-btn">Troll Invasion</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Monthly event.</p>
+          </div>
+        </li>
+        <li class="task" data-task="giant-oyster">
+          <button class="task-btn">Giant Oyster</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Monthly event.</p>
+          </div>
+        </li>
+        <li class="task" data-task="god-statues">
+          <button class="task-btn">God Statues</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Monthly task.</p>
+          </div>
+        </li>
+        <li class="task" data-task="effigy-incubator">
+          <button class="task-btn">Effigy Incubator</button>
+          <button class="info-btn">Show Info</button>
+          <div class="task-info">
+            <p>Notes: Monthly task.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
