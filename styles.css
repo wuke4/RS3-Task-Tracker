@@ -1,12 +1,10 @@
 /* General Styling */
 body {
-  background-image: url('runescape.webp');
-  background-size: cover;
-  background-position: center;
-  font-family: Arial, sans-serif;
-  color: white;
-  margin: 0;
-  padding: 0;
+  background-image: url('rs3.webp'); /* Replace with your background image path */
+  background-size: cover; /* Ensures the image covers the entire screen without distortion */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
+  min-height: 100vh; /* Ensures the background always covers the viewport height */
 }
 
 header {
@@ -56,8 +54,9 @@ h2 {
 
 /* Task List */
 ul {
-  list-style: none;
   padding: 0;
+  list-style: none;
+  margin: 0;
 }
 
 .task {
@@ -165,3 +164,40 @@ ul {
   }
 }
 
+/* Tabs Navigation */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background-color: #444;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 6px;
+  margin: 0 5px;
+  transition: background-color 0.3s;
+}
+
+.tab-btn:hover {
+  background-color: #666;
+}
+
+.tab-btn.active {
+  background-color: #ffcc00;
+  color: black;
+}
+
+/* Tab Content */
+.tab-content {
+  display: none;
+  
+}
+
+.tab-content.active {
+  display: block;
+}
