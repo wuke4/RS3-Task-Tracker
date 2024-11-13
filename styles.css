@@ -1,4 +1,4 @@
-/* General styling */
+/* General Styling */
 body {
   background-image: url('runescape.webp');
   background-size: cover;
@@ -10,37 +10,76 @@ body {
 }
 
 header {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.85);
   padding: 20px;
   text-align: center;
   color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
-/* Task list styling */
-#task-list {
-  margin: 20px;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 8px;
+header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#timers {
+  margin-top: 10px;
+}
+
+#timers p {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+#timers span {
+  font-size: 22px;
+  color: #ffcc00;
+}
+
+/* Task Section Styling */
+main {
+  padding: 20px;
 }
 
 h2 {
   color: #ffcc00;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 4px black;
 }
 
-/* Task button and completed task styling */
+#daily-tasks, #weekly-tasks, #monthly-tasks {
+  margin-bottom: 30px;
+}
+
+/* Task List */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.task {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Task Button */
 .task-btn {
   display: block;
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background-color: #444;
   color: white;
   border: none;
-  text-align: left;
   font-size: 16px;
   cursor: pointer;
-  margin: 5px 0;
-  border-radius: 4px;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
 }
 
 .task-btn:hover {
@@ -50,49 +89,79 @@ h2 {
 .task.completed .task-btn {
   background-color: green;
   text-decoration: line-through;
+  color: #ddd;
 }
 
-/* Info button styling */
+/* Info Button */
 .info-btn {
   background-color: #333;
   color: white;
   border: none;
-  padding: 5px;
+  padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
   margin-top: 5px;
-  border-radius: 4px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
 .info-btn:hover {
   background-color: #555;
 }
 
-/* Task info (initially hidden) */
+/* Task Info */
 .task-info {
   display: none;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 4px;
-  margin-top: 5px;
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 6px;
+  margin-top: 10px;
+  color: #ddd;
+  font-size: 14px;
 }
 
-/* Show task info when the button is clicked */
+/* Show Task Info */
 .task-info.show {
   display: block;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Timer styles */
-#timers {
-  margin-top: 20px;
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-#timers p {
-  font-size: 18px;
-  font-weight: bold;
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  .task-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .info-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  #timers p {
+    font-size: 16px;
+  }
+
+  #timers span {
+    font-size: 20px;
+  }
 }
 
-#timers span {
-  font-size: 22px;
-  color: #ffcc00;
-}
