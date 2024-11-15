@@ -201,3 +201,41 @@ ul {
 .tab-content.active {
   display: block;
 }
+/* Flickering torch effect */
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.85;
+  }
+}
+
+header {
+  animation: flicker 1.5s infinite alternate;
+}
+
+/* Optional: Add a glow to task buttons for a magical effect */
+.task-btn {
+  box-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+}
+
+.task-btn:hover {
+  box-shadow: 0 0 12px rgba(255, 204, 0, 1);
+}
+/* Apply medieval-style font to headings */
+header h1, h2 {
+  font-family: 'Cinzel', serif;
+}
+
+/* Optional: Apply the font to buttons as well */
+.task-btn, .tab-btn {
+  font-family: 'Cinzel', serif;
+}
+
