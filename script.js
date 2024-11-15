@@ -126,6 +126,55 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById(tabId).classList.add('active');
       });
     });
+    function updateBloodwoodTimer() {
+      const eventIntervalHours = 14; // Interval in hours for the event to repeat
+    
+      // Get current time and set today’s 3 PM Arizona time (MST)
+      const now = new Date();
+      const arizonaOffset = -7; // Arizona is UTC-7 year-round (no DST)
+      const currentUTCHours = now.getUTCHours();
+      const currentArizonaHours = currentUTCHours + arizonaOffset;
+      let eventTime = new Date();
+      
+      eventTime.setUTCHours((currentArizonaHours >= 15 ? 15 + eventIntervalHours : 15) - arizonaOffset, 0, 0, 0); // set to next 3 PM or 14 hours later
+      
+      // Calculate difference between current time and event time
+      const timeDiff = eventTime - now;
+      
+      // Reset event time by 14 hours if it's already past the event time
+      if (timeDiff <= 0) {
+        eventTime.setHours(eventTime.getHours() + eventIntervalHours);
+      }
+    
+      // Function to calculate and format the time remaining
+      function formatTimeRemaining(diff) {
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        return `${hours}h ${minutes}m ${seconds}s`;
+      }
+    
+      // Update timer display every second
+      setInterval(() => {
+        const now = new Date();
+        let remainingTime = eventTime - now;
+    
+        // If time runs out, reset eventTime for the next interval
+        if (remainingTime <= 0) {
+          eventTime.setHours(eventTime.getHours() + eventIntervalHours);
+          remainingTime = eventTime - now;
+        }
+    
+        document.getElementById('bloodwood-timer').textContent = formatTimeRemaining(remainingTime);
+      }, 1000);
+    }
+    
+    // Call the function to start the Bloodwood Tree timer
+    updateBloodwoodTimer();
+    
   });
+  
+
+
   
 
