@@ -3,32 +3,36 @@ document.addEventListener('DOMContentLoaded', function () {
   const weeklyTimer = document.getElementById('weekly-timer');
   const dailyTimer = document.getElementById('daily-timer');
 
-  // Load task state from localStorage
+  // Add a new element for the Evil Tree timer
+  const evilTreeTimerElement = document.createElement('p');
+  evilTreeTimerElement.innerHTML = 'Evil Tree Reset: <span id="evil-tree-timer"></span>';
+  document.getElementById('timers').appendChild(evilTreeTimerElement);
+  const evilTreeTimer = document.getElementById('evil-tree-timer');
+
   function loadTaskState() {
     tasks.forEach(task => {
       const taskId = task.getAttribute('data-task');
       const isCompleted = localStorage.getItem(taskId) === 'true';
-
       if (isCompleted) {
         task.classList.add('completed');
       }
     });
   }
 
-  // Save task state to localStorage
   function saveTaskState(taskId, isCompleted) {
     localStorage.setItem(taskId, isCompleted);
   }
 
-  // Update timers
   function updateTimer() {
     const now = new Date();
 
-    const weeklyReset = getNextWeeklyReset(17, 0); // 5:00pm Tuesday (Arizona Time)
-    const dailyReset = getNextReset(17, 0); // 5:00pm every day (Arizona Time)
+    const weeklyReset = getNextWeeklyReset(17, 0);
+    const dailyReset = getNextReset(17, 0);
+    const evilTreeReset = getNextEvilTreeReset(14); // 14-hour interval
 
     weeklyTimer.textContent = formatTime(weeklyReset - now);
     dailyTimer.textContent = formatTime(dailyReset - now);
+    evilTreeTimer.textContent = formatTime(evilTreeReset - now);
   }
 
   function getNextReset(hour, minute) {
@@ -40,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     nextReset.setSeconds(0);
 
     if (nextReset < now) {
-      nextReset.setDate(nextReset.getDate() + 1); // Reset to the next day
+      nextReset.setDate(nextReset.getDate() + 1);
     }
 
     return nextReset;
@@ -48,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function getNextWeeklyReset(hour, minute) {
     const now = new Date();
-    const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-    const daysUntilTuesday = (2 - dayOfWeek + 7) % 7; // Days until next Tuesday
+    const dayOfWeek = now.getDay();
+    const daysUntilTuesday = (2 - dayOfWeek + 7) % 7;
 
     let nextReset = new Date(now);
     nextReset.setDate(now.getDate() + daysUntilTuesday);
@@ -57,10 +61,31 @@ document.addEventListener('DOMContentLoaded', function () {
     nextReset.setMinutes(minute);
     nextReset.setSeconds(0);
 
-    // If today is Tuesday and the reset time has passed, set to next Tuesday
     if (daysUntilTuesday === 0 && nextReset < now) {
       nextReset.setDate(nextReset.getDate() + 7);
     }
+
+    return nextReset;
+  }
+
+  function getNextEvilTreeReset(intervalHours) {
+    const now = new Date();
+    let nextReset = new Date(now);
+
+    // Set the next reset time to the start of the next interval
+    nextReset.setMinutes(0);
+    nextReset.setSeconds(0);
+    nextReset.setMilliseconds(0);
+
+    const hoursSinceLastReset = now.getHours() % intervalHours;
+    if (hoursSinceLastReset === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+      // If it's exactly at the reset time, no adjustment needed
+      return nextReset;
+    }
+
+    // Otherwise, adjust forward by the remaining hours in the interval
+    const hoursToNextReset = intervalHours - hoursSinceLastReset;
+    nextReset.setHours(now.getHours() + hoursToNextReset);
 
     return nextReset;
   }
@@ -74,10 +99,14 @@ document.addEventListener('DOMContentLoaded', function () {
     return `${days > 0 ? `${days}d ` : ''}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
   }
 
-  updateTimer();
-  setInterval(updateTimer, 1000);
+  function showFeedbackMessage(message) {
+    const feedback = document.createElement('div');
+    feedback.textContent = message;
+    feedback.style = 'position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: green; color: white; padding: 10px 20px; border-radius: 5px; z-index: 1000;';
+    document.body.appendChild(feedback);
+    setTimeout(() => feedback.remove(), 3000);
+  }
 
-  // Toggle task completion
   tasks.forEach(task => {
     const button = task.querySelector('.task-btn');
     button.addEventListener('click', () => {
@@ -85,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const taskId = task.getAttribute('data-task');
       const isCompleted = task.classList.contains('completed');
       saveTaskState(taskId, isCompleted);
+      showFeedbackMessage(isCompleted ? "Task marked as completed!" : "Task marked as incomplete!");
     });
 
     const infoButton = task.querySelector('.info-btn');
@@ -94,86 +124,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Load task completion state on page load
-  loadTaskState();
-
-  // Reset All Tasks Button
-  const resetButton = document.createElement('button');
-  resetButton.textContent = 'Reset All Tasks';
-  resetButton.style = 'margin: 20px; padding: 10px; background: red; color: white; border: none; border-radius: 5px; cursor: pointer;';
-  document.body.appendChild(resetButton);
-
-  resetButton.addEventListener('click', () => {
+  document.getElementById('task-search').addEventListener('input', function (event) {
+    const query = event.target.value.toLowerCase();
     tasks.forEach(task => {
-      task.classList.remove('completed');
-      const taskId = task.getAttribute('data-task');
-      localStorage.removeItem(taskId);
+      const taskName = task.querySelector('.task-btn').textContent.toLowerCase();
+      task.style.display = taskName.includes(query) ? 'block' : 'none';
     });
   });
-  
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-  
-    tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        // Remove 'active' class from all buttons and contents
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
-  
-        // Add 'active' class to the clicked button and corresponding content
-        button.classList.add('active');
-        const tabId = button.getAttribute('data-tab');
-        document.getElementById(tabId).classList.add('active');
-      });
-    });
-    function updateBloodwoodTimer() {
-      const eventIntervalHours = 14; // Interval in hours for the event to repeat
-    
-      // Get current time and set today’s 3 PM Arizona time (MST)
-      const now = new Date();
-      const arizonaOffset = -7; // Arizona is UTC-7 year-round (no DST)
-      const currentUTCHours = now.getUTCHours();
-      const currentArizonaHours = currentUTCHours + arizonaOffset;
-      let eventTime = new Date();
-      
-      eventTime.setUTCHours((currentArizonaHours >= 15 ? 15 + eventIntervalHours : 15) - arizonaOffset, 0, 0, 0); // set to next 3 PM or 14 hours later
-      
-      // Calculate difference between current time and event time
-      const timeDiff = eventTime - now;
-      
-      // Reset event time by 14 hours if it's already past the event time
-      if (timeDiff <= 0) {
-        eventTime.setHours(eventTime.getHours() + eventIntervalHours);
-      }
-    
-      // Function to calculate and format the time remaining
-      function formatTimeRemaining(diff) {
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-        return `${hours}h ${minutes}m ${seconds}s`;
-      }
-    
-      // Update timer display every second
-      setInterval(() => {
-        const now = new Date();
-        let remainingTime = eventTime - now;
-    
-        // If time runs out, reset eventTime for the next interval
-        if (remainingTime <= 0) {
-          eventTime.setHours(eventTime.getHours() + eventIntervalHours);
-          remainingTime = eventTime - now;
-        }
-    
-        document.getElementById('bloodwood-timer').textContent = formatTimeRemaining(remainingTime);
-      }, 1000);
-    }
-    
-    // Call the function to start the Bloodwood Tree timer
-    updateBloodwoodTimer();
-    
-  });
-  
+
+  loadTaskState();
+  updateTimer();
+  setInterval(updateTimer, 1000);
+});
+
 
 
   
