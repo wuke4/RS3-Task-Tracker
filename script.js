@@ -2,76 +2,113 @@ document.addEventListener('DOMContentLoaded', function () {
   const tasks = document.querySelectorAll('.task');
   const weeklyTimer = document.getElementById('weekly-timer');
   const dailyTimer = document.getElementById('daily-timer');
+  const bloodwoodTimer = document.getElementById('bloodwood-timer');
+  const bloodwoodStaticTime = document.createElement('span');
+  bloodwoodStaticTime.id = 'bloodwood-static-time';
+  bloodwoodTimer.parentNode.appendChild(bloodwoodStaticTime);
 
   // Load task state from localStorage
   function loadTaskState() {
-    tasks.forEach(task => {
-      const taskId = task.getAttribute('data-task');
-      const isCompleted = localStorage.getItem(taskId) === 'true';
+      tasks.forEach(task => {
+          const taskId = task.getAttribute('data-task');
+          const isCompleted = localStorage.getItem(taskId) === 'true';
 
-      if (isCompleted) {
-        task.classList.add('completed');
-      }
-    });
+          if (isCompleted) {
+              task.classList.add('completed');
+          }
+      });
   }
 
   // Save task state to localStorage
   function saveTaskState(taskId, isCompleted) {
-    localStorage.setItem(taskId, isCompleted);
+      localStorage.setItem(taskId, isCompleted);
   }
 
   // Update timers
   function updateTimer() {
-    const now = new Date();
+      const now = new Date();
 
-    const weeklyReset = getNextWeeklyReset(17, 0); // 5:00pm Tuesday (Arizona Time)
-    const dailyReset = getNextReset(17, 0); // 5:00pm every day (Arizona Time)
+      const weeklyReset = getNextWeeklyReset(17, 0); // 5:00 PM Tuesday (Arizona Time)
+      const dailyReset = getNextReset(17, 0); // 5:00 PM every day (Arizona Time)
+      const nextBloodwoodEvent = getNextBloodwoodEvent();
 
-    weeklyTimer.textContent = formatTime(weeklyReset - now);
-    dailyTimer.textContent = formatTime(dailyReset - now);
+      weeklyTimer.textContent = formatTime(weeklyReset - now);
+      dailyTimer.textContent = formatTime(dailyReset - now);
+      bloodwoodTimer.textContent = formatTime(nextBloodwoodEvent - now);
+
+      // Display the exact time of the next Evil Bloodwood Tree event
+      bloodwoodStaticTime.textContent = ` (Next event at: ${formatStaticTime(nextBloodwoodEvent)})`;
   }
 
   function getNextReset(hour, minute) {
-    const now = new Date();
-    let nextReset = new Date(now);
+      const now = new Date();
+      let nextReset = new Date(now);
 
-    nextReset.setHours(hour);
-    nextReset.setMinutes(minute);
-    nextReset.setSeconds(0);
+      nextReset.setHours(hour);
+      nextReset.setMinutes(minute);
+      nextReset.setSeconds(0);
 
-    if (nextReset < now) {
-      nextReset.setDate(nextReset.getDate() + 1); // Reset to the next day
-    }
+      if (nextReset < now) {
+          nextReset.setDate(nextReset.getDate() + 1); // Reset to the next day
+      }
 
-    return nextReset;
+      return nextReset;
   }
 
   function getNextWeeklyReset(hour, minute) {
-    const now = new Date();
-    const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-    const daysUntilTuesday = (2 - dayOfWeek + 7) % 7; // Days until next Tuesday
+      const now = new Date();
+      const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+      const daysUntilTuesday = (2 - dayOfWeek + 7) % 7; // Days until next Tuesday
 
-    let nextReset = new Date(now);
-    nextReset.setDate(now.getDate() + daysUntilTuesday);
-    nextReset.setHours(hour);
-    nextReset.setMinutes(minute);
-    nextReset.setSeconds(0);
+      let nextReset = new Date(now);
+      nextReset.setDate(now.getDate() + daysUntilTuesday);
+      nextReset.setHours(hour);
+      nextReset.setMinutes(minute);
+      nextReset.setSeconds(0);
 
-    // If today is Tuesday and the reset time has passed, set to next Tuesday
-    if (daysUntilTuesday === 0 && nextReset < now) {
-      nextReset.setDate(nextReset.getDate() + 7);
-    }
+      if (daysUntilTuesday === 0 && nextReset < now) {
+          nextReset.setDate(nextReset.getDate() + 7);
+      }
 
-    return nextReset;
+      return nextReset;
+  }
+
+  function getNextBloodwoodEvent() {
+      const now = new Date();
+      let nextEvent = new Date(now);
+
+      // Set the next event to 9:00 AM Arizona time
+      nextEvent.setHours(9, 0, 0, 0);
+
+      if (nextEvent < now) {
+          // If the event has passed, add 14 hours to get the next occurrence
+          nextEvent = new Date(nextEvent.getTime() + 14 * 60 * 60 * 1000);
+      }
+
+      // Adjust for multiple 14-hour cycles if needed
+      while (nextEvent < now) {
+          nextEvent = new Date(nextEvent.getTime() + 14 * 60 * 60 * 1000);
+      }
+
+      return nextEvent;
   }
 
   function formatTime(timeLeft) {
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-    return `${days > 0 ? `${days}d ` : ''}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+      return `${days > 0 ? `${days}d ` : ''}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+  }
+
+  function formatStaticTime(date) {
+      const hours = date.getHours();
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const period = hours >= 12 ? 'PM' : 'AM';
+      const formattedHours = hours % 12 || 12; // Convert 24-hour time to 12-hour time
+
+      return `${formattedHours}:${minutes} ${period}`;
   }
 
   updateTimer();
@@ -79,23 +116,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Toggle task completion
   tasks.forEach(task => {
-    const button = task.querySelector('.task-btn');
-    button.addEventListener('click', () => {
-      task.classList.toggle('completed');
-      const taskId = task.getAttribute('data-task');
-      const isCompleted = task.classList.contains('completed');
-      saveTaskState(taskId, isCompleted);
-    });
+      const button = task.querySelector('.task-btn');
+      button.addEventListener('click', () => {
+          task.classList.toggle('completed');
+          const taskId = task.getAttribute('data-task');
+          const isCompleted = task.classList.contains('completed');
+          saveTaskState(taskId, isCompleted);
+      });
 
-    const infoButton = task.querySelector('.info-btn');
-    const taskInfo = task.querySelector('.task-info');
-    infoButton.addEventListener('click', () => {
-      taskInfo.classList.toggle('show');
-    });
+      const infoButton = task.querySelector('.info-btn');
+      const taskInfo = task.querySelector('.task-info');
+      infoButton.addEventListener('click', () => {
+          taskInfo.classList.toggle('show');
+      });
   });
-
-  // Load task completion state on page load
-  loadTaskState();
 
   // Reset All Tasks Button
   const resetButton = document.createElement('button');
@@ -104,30 +138,37 @@ document.addEventListener('DOMContentLoaded', function () {
   document.body.appendChild(resetButton);
 
   resetButton.addEventListener('click', () => {
-    tasks.forEach(task => {
-      task.classList.remove('completed');
-      const taskId = task.getAttribute('data-task');
-      localStorage.removeItem(taskId);
-    });
-  });
-  
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-  
-    tabButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        // Remove 'active' class from all buttons and contents
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
-  
-        // Add 'active' class to the clicked button and corresponding content
-        button.classList.add('active');
-        const tabId = button.getAttribute('data-tab');
-        document.getElementById(tabId).classList.add('active');
+      tasks.forEach(task => {
+          task.classList.remove('completed');
+          const taskId = task.getAttribute('data-task');
+          localStorage.removeItem(taskId);
       });
-    });
   });
-  
+
+  // Tab Navigation
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+          // Remove 'active' class from all buttons and contents
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+
+          // Add 'active' class to the clicked button and corresponding content
+          button.classList.add('active');
+          const tabId = button.getAttribute('data-tab');
+          document.getElementById(tabId).classList.add('active');
+      });
+  });
+
+  // Load task completion state on page load
+  loadTaskState();
+
+  // Update timers every second
+  updateTimer();
+  setInterval(updateTimer, 1000);
+});
 
 
 
