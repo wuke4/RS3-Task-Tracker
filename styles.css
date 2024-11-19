@@ -301,4 +301,18 @@ header h1, h2 {
     padding: 8px 16px;
   }
 }
+/* Tabs Container with Fixed Size */
+.tabs-container {
+  
+  background-size: cover; /* Ensure the image covers the container */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent tiling */
+  width:1000px; /* Fixed width */
+  height: 500px; /* Fixed height */
+  margin: 20px auto; /* Center the container */
+  border-radius: 8px; /* Optional: Rounded corners */
+  padding: 20px; /* Inner spacing */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  overflow-y: auto; /* Enable scrolling if content exceeds the height */
+}
 
