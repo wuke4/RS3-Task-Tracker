@@ -74,24 +74,28 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function getNextBloodwoodEvent() {
-      const now = new Date();
-      let nextEvent = new Date(now);
+    const now = new Date();
 
-      // Set the next event to 9:00 AM Arizona time
-      nextEvent.setHours(9, 0, 0, 0);
+    // Create a new date for the next event, explicitly setting it to 3 AM Arizona time (UTC-7)
+    const nextEvent = new Date(now);
 
-      if (nextEvent < now) {
-          // If the event has passed, add 14 hours to get the next occurrence
-          nextEvent = new Date(nextEvent.getTime() + 14 * 60 * 60 * 1000);
-      }
+    // Adjust to Arizona time by subtracting the UTC offset
+    const arizonaOffset = -7; // Arizona is UTC-7 year-round
+    const utcHours = now.getUTCHours();
+    const utcDate = now.getUTCDate();
 
-      // Adjust for multiple 14-hour cycles if needed
-      while (nextEvent < now) {
-          nextEvent = new Date(nextEvent.getTime() + 14 * 60 * 60 * 1000);
-      }
+    nextEvent.setUTCDate(utcDate); // Set the current date
+    nextEvent.setUTCHours(3 - arizonaOffset, 0, 0, 0); // 3 AM MST
 
-      return nextEvent;
-  }
+    // If the calculated time is in the past, add 14 hours to get the next occurrence
+    while (nextEvent < now) {
+        nextEvent.setTime(nextEvent.getTime() + 14 * 60 * 60 * 1000);
+    }
+
+    return nextEvent;
+}
+
+
 
   function formatTime(timeLeft) {
       const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
@@ -169,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
   updateTimer();
   setInterval(updateTimer, 1000);
 });
+
 
 
 
