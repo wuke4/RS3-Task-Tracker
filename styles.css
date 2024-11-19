@@ -239,4 +239,66 @@ header h1, h2 {
   font-family: 'Cinzel', serif;
 }
 
+/* Standalone Guide Button */
+.side-guide-btn {
+  position: fixed; /* Keeps the button fixed on the screen */
+  top: 33%; /* Vertically centers the button */
+  right: 285px; /* Keeps the button near the right edge */
+  transform: translateY(-50%); /* Adjusts for perfect vertical centering */
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  z-index: 1000; /* Ensures it stays above other content */
+}
+
+.side-guide-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Ensure button is properly visible on smaller screens */
+@media (max-width: 768px) {
+  .side-guide-btn {
+    right: 10px; /* Adjust distance from edge for smaller screens */
+    font-size: 14px; /* Slightly smaller font size */
+    padding: 8px 16px; /* Adjust padding for smaller screens */
+  }
+}
+
+/* Extra Guide Button */
+.extra-guide-btn {
+  text-align: center; /* Center-align the button */
+  margin-top: 20px; /* Add spacing between the tabs and the button */
+}
+
+.extra-guide-btn button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.extra-guide-btn button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Adjust styling for smaller screens */
+@media (max-width: 768px) {
+  .extra-guide-btn button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
 
