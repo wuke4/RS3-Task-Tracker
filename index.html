@@ -22,11 +22,17 @@
     <button class="tab-btn active" data-tab="daily-tasks">Daily Tasks</button>
     <button class="tab-btn" data-tab="weekly-tasks">Weekly Tasks</button>
     <button class="tab-btn" data-tab="monthly-tasks">Monthly Tasks</button>
+    <div class="extra-guide-btn">
+      <button onclick="window.location.href='mining-smithing-guide.html'" class="info-link">
+        Mining and Smithing Training Guide
+      </button>
+    </div>
+    
   </div>
     <!-- Daily Tasks -->
     <div id="daily-tasks" class="tab-content active">
       <h2>Daily Tasks</h2>
-      <ul>
+      <ul>   
         <li class="task" data-task="jack-of-trades">
           <button class="task-btn">Jack of Trades</button>
           <button class="info-btn">Show Info</button>
@@ -34,18 +40,23 @@
             <a href="https://runescape.wiki/w/Jack_of_trades_aura" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
-        <li class="task" data-task="player-owned-ports">
-          <button class="task-btn">Player-Owned Ports</button>
+        <li class="task" data-task="player-owned-farm">
+          <button class="task-btn">Player-Owned Farm</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Manage voyages and crew members daily.</p>
+            <p>Notes: Check beehives and farm animals daily.</p>
+            <a href="https://runescape.wiki/w/Player-owned_farm" target="_blank" class="info-link">More Info</a>
+            <br>
+            <button onclick="window.location.href='player-owned-farm-guide.html'" class="info-link">Guide</button>
           </div>
         </li>
+        
         <li class="task" data-task="guthixian-cache">
-          <button class="task-btn">Guthixian Cache (2 per day)</button>
+          <button class="task-btn">Guthixian Cache</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Participate twice daily for Divination XP.</p>
+            <a href="https://runescape.wiki/w/Guthixian_Cache" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="player-owned-farm">
@@ -53,6 +64,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Check beehives and farm animals daily.</p>
+            <a href="https://runescape.wiki/w/Player-owned_farm" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="shop-run">
@@ -67,6 +79,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Desert Diaries.</p>
+            <a href="https://runescape.wiki/w/Potato_cactus" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="wicked-hood">
@@ -95,6 +108,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Explore the forest for XP and resources.</p>
+            <a href="https://runescape.wiki/w/Nemi_Forest" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="mine-sandstone">
@@ -109,6 +123,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Yak card + Divine Location.</p>
+            <a href="https://runescape.wiki/w/Gorajo" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="reaper-task">
@@ -122,7 +137,8 @@
           <button class="task-btn">Travelling Merchant</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Goebie Burial Charms, Unstable Air Rune, Anima Crystal, Slayer VIP Coupon, Distraction & Diversion Reset Tokens, Sacred Clay (optional), Livid Plant, Gift for the Reaper, Dragonkin Lamp, Dungeoneering Wildcard, Deathtouched Dart (optional).</p>
+            <p>Notes: Rare items and resources.</p>
+            <a href="https://runescape.wiki/w/Travelling_merchant" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="daily-challenges">
@@ -136,9 +152,11 @@
           <button class="task-btn">Soul Obelisk</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Daily activity at the Soul Obelisk.</p>
+            <p>Notes: Menaphos activity.</p>
+            <a href="https://runescape.wiki/w/Soul_obelisk_(Menaphos)" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
+      </ul>
         <li class="task" data-task="city-of-um-free-supplies">
           <button class="task-btn">City of Um Free Supplies</button>
           <button class="info-btn">Show Info</button>
@@ -158,6 +176,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Weekly activity in Herby Werby minigame.</p>
+            <a href="https://runescape.wiki/w/Herby_Werby" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="penguin-hide-and-seek">
@@ -165,6 +184,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Weekly minigame.</p>
+            <a href="https://runescape.wiki/w/Penguin_Hide_and_Seek" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="tears-of-guthix">
@@ -172,6 +192,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Weekly activity.</p>
+            <a href="https://runescape.wiki/w/Tears_of_Guthix" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="circus">
@@ -179,20 +200,23 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Weekly minigame.</p>
+            <a href="https://runescape.wiki/w/Circus" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="managing-miscellania">
           <button class="task-btn">Managing Miscellania</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Mahogany > Maples.</p>
+            <p>Notes: Manage kingdom resources.</p>
+            <a href="https://runescape.wiki/w/Managing_Miscellania" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="agoroth">
           <button class="task-btn">Agoroth</button>
           <button class="info-btn">Show Info</button>
           <div class="task-info">
-            <p>Notes: Weekly task.</p>
+            <p>Notes: Weekly task for rewards.</p>
+            <a href="https://runescape.wiki/w/Agoroth" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="familiarisation">
@@ -200,6 +224,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Outfit > Double Charms.</p>
+            <a href="https://runescape.wiki/w/Familiarisation" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="fort-forinthry">
@@ -207,6 +232,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Weekly XP Claim.</p>
+            <a href="https://runescape.wiki/w/Fort_Forinthry" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="totems-anachronia">
@@ -214,6 +240,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Check for Anachronia Totems.</p>
+            <a href="https://runescape.wiki/w/Totem" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="thalmunds-wares">
@@ -221,6 +248,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Weekly task from Thalmund's shop.</p>
+            <a href="https://runescape.wiki/w/Thalmund%27s_Wares" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="water-filtration-system">
@@ -228,6 +256,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Weekly Anachronia task.</p>
+            <a href="https://runescape.wiki/w/Water_filtration_system" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="megs-questions">
@@ -235,6 +264,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Answer Meg's weekly questions.</p>
+            <a href="https://runescape.wiki/w/Meg%27s_questions" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
       </ul>
@@ -249,6 +279,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Monthly event for combat XP rewards.</p>
+            <a href="https://runescape.wiki/w/Troll_Invasion" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="giant-oyster">
@@ -256,6 +287,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Monthly D&D with Fishing and Farming XP.</p>
+            <a href="https://runescape.wiki/w/Giant_Oyster" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="god-statues">
@@ -263,6 +295,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Build God Statues for Prayer/Construction XP.</p>
+            <a href="https://runescape.wiki/w/God_Statues" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
         <li class="task" data-task="effigy-incubator">
@@ -270,6 +303,7 @@
           <button class="info-btn">Show Info</button>
           <div class="task-info">
             <p>Notes: Monthly event for effigy creation.</p>
+            <a href="https://runescape.wiki/w/Effigy_Incubator" target="_blank" class="info-link">More Info</a>
           </div>
         </li>
       </ul>
