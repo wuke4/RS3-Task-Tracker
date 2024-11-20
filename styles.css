@@ -10,15 +10,6 @@ body {
   padding: 0;
 }
 
-
-header {
-  background-color: rgba(0, 0, 0, 0.85);
-  padding: 20px;
-  text-align: center;
-  color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-}
-
 header h1 {
   margin: 0;
   font-size: 28px;
@@ -222,16 +213,22 @@ ul {
 }
 
 header {
-  animation: flicker 1.5s infinite alternate;
+  background-color: rgba(0, 0, 0, 0.514);
+  padding: 20px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
 }
 
 /* Optional: Add a glow to task buttons for a magical effect */
 .task-btn {
-  box-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+  box-shadow: 0 0 8px rgba(255, 238, 0, 0.7);
 }
 
 .task-btn:hover {
-  box-shadow: 0 0 12px rgba(255, 204, 0, 1);
+  box-shadow: 0 0 12px rgb(72, 255, 0);
 }
 /* Apply medieval-style font to headings */
 header h1, h2 {
@@ -334,4 +331,9 @@ header h1, h2 {
 
 .task.hidden {
   display: none;
+}
+@media (max-width: 768px) {
+  .task {
+    width: 100%; /* Tasks take the full width of the container */
+  }
 }

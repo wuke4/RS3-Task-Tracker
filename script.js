@@ -1,3 +1,65 @@
+  // Reset all tasks
+  function resetTasks() {
+    tasks.forEach(task => {
+      task.classList.remove('completed');
+      const taskId = task.getAttribute('data-task');
+      localStorage.removeItem(taskId);
+    });
+  }
+
+  // Check if the timer has passed
+  function checkResetTimers() {
+    const now = new Date();
+    const dailyReset = getNextReset(17, 0); // 5:00 PM daily reset (Arizona Time)
+    const weeklyReset = getNextWeeklyReset(17, 0); // 5:00 PM Tuesday weekly reset (Arizona Time)
+
+    // Compare the current time with the last reset time stored in localStorage
+    const lastDailyReset = new Date(localStorage.getItem('lastDailyReset'));
+    const lastWeeklyReset = new Date(localStorage.getItem('lastWeeklyReset'));
+
+    // Reset tasks if the daily reset has passed
+    if (now >= dailyReset && (!lastDailyReset || now > lastDailyReset)) {
+      resetTasks();
+      localStorage.setItem('lastDailyReset', dailyReset);
+    }
+
+    // Reset weekly tasks if the weekly reset has passed
+    if (now >= weeklyReset && (!lastWeeklyReset || now > lastWeeklyReset)) {
+      resetTasks();
+      localStorage.setItem('lastWeeklyReset', weeklyReset);
+    }
+  }
+
+  // Run the reset check every minute
+  setInterval(checkResetTimers, 60000);
+
+  // Helper functions for reset times
+  function getNextReset(hour, minute) {
+    const now = new Date();
+    let nextReset = new Date(now);
+    nextReset.setHours(hour, minute, 0, 0);
+    if (nextReset < now) {
+      nextReset.setDate(nextReset.getDate() + 1);
+    }
+    return nextReset;
+  }
+
+  function getNextWeeklyReset(hour, minute) {
+    const now = new Date();
+    const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    const daysUntilTuesday = (2 - dayOfWeek + 7) % 7; // Days until next Tuesday
+    let nextReset = new Date(now);
+    nextReset.setDate(now.getDate() + daysUntilTuesday);
+    nextReset.setHours(hour, minute, 0, 0);
+    if (nextReset < now) {
+      nextReset.setDate(nextReset.getDate() + 7);
+    }
+    return nextReset;
+  }
+
+  // Initialize tasks on load
+  checkResetTimers();
+
 document.addEventListener('DOMContentLoaded', function () {
   const tasks = document.querySelectorAll('.task');
   const weeklyTimer = document.getElementById('weekly-timer');
@@ -255,4 +317,3 @@ document.addEventListener('DOMContentLoaded', function () {
   // Load hidden task states on page load
   loadHiddenTasks();
 });
-
