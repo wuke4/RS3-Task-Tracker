@@ -26,19 +26,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Update timers
   function updateTimer() {
-      const now = new Date();
-
-      const weeklyReset = getNextWeeklyReset(17, 0); // 5:00 PM Tuesday (Arizona Time)
-      const dailyReset = getNextReset(17, 0); // 5:00 PM every day (Arizona Time)
-      const nextBloodwoodEvent = getNextBloodwoodEvent();
-
-      weeklyTimer.textContent = formatTime(weeklyReset - now);
-      dailyTimer.textContent = formatTime(dailyReset - now);
-      bloodwoodTimer.textContent = formatTime(nextBloodwoodEvent - now);
-
-      // Display the exact time of the next Evil Bloodwood Tree event
-      bloodwoodStaticTime.textContent = ` (Next event at: ${formatStaticTime(nextBloodwoodEvent)})`;
+    const now = new Date();
+  
+    const weeklyReset = getNextWeeklyReset(17, 0); // 5:00 PM Tuesday (Arizona Time)
+    const dailyReset = getNextReset(17, 0); // 5:00 PM every day (Arizona Time)
+    const nextBloodwoodEvent = getNextBloodwoodEvent();
+  
+    weeklyTimer.textContent = formatTime(weeklyReset - now);
+    dailyTimer.textContent = formatTime(dailyReset - now);
+    bloodwoodTimer.textContent = formatTime(nextBloodwoodEvent - now);
+  
+    // Display the exact time of the next Evil Bloodwood Tree event
+    bloodwoodStaticTime.textContent = ` (Next event at: ${formatStaticTime(nextBloodwoodEvent)})`;
   }
+  
 
   function getNextReset(hour, minute) {
       const now = new Date();
@@ -75,25 +76,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function getNextBloodwoodEvent() {
     const now = new Date();
-
-    // Create a new date for the next event, explicitly setting it to 3 AM Arizona time (UTC-7)
-    const nextEvent = new Date(now);
-
-    // Adjust to Arizona time by subtracting the UTC offset
-    const arizonaOffset = -7; // Arizona is UTC-7 year-round
-    const utcHours = now.getUTCHours();
-    const utcDate = now.getUTCDate();
-
-    nextEvent.setUTCDate(utcDate); // Set the current date
-    nextEvent.setUTCHours(3 - arizonaOffset, 0, 0, 0); // 3 AM MST
-
-    // If the calculated time is in the past, add 14 hours to get the next occurrence
-    while (nextEvent < now) {
-        nextEvent.setTime(nextEvent.getTime() + 14 * 60 * 60 * 1000);
+    
+    // Current time in milliseconds
+    const currentTime = now.getTime();
+  
+    // Start with the known next event (5:42 PM Arizona time, adjusted for the next event in 13h 17m)
+    const initialEventTime = new Date(now);
+    initialEventTime.setHours(17, 43, 0, 0); // Set initial known event time (5:42 PM AZ time)
+    
+    // Add 13 hours and 17 minutes for the next event after the current
+    const eventInterval = 14 * 60 * 60 * 1000; // 14 hours in milliseconds
+    
+    // Adjust to find the first future event
+    let nextEventTime = initialEventTime.getTime() + 13 * 60 * 60 * 1000 + 17 * 60 * 1000;
+  
+    while (nextEventTime < currentTime) {
+      nextEventTime += eventInterval;
     }
-
-    return nextEvent;
-}
+  
+    return new Date(nextEventTime); // Return the next event time as a Date object
+  }
+  
 
 
 
@@ -172,10 +175,84 @@ document.addEventListener('DOMContentLoaded', function () {
   // Update timers every second
   updateTimer();
   setInterval(updateTimer, 1000);
+
+    
+ // Load hidden tasks from localStorage
+ function loadHiddenTasks() {
+    const hiddenTasks = JSON.parse(localStorage.getItem('hiddenTasks')) || [];
+    tasks.forEach((task) => {
+      const taskId = task.getAttribute('data-task');
+      if (hiddenTasks.includes(taskId)) {
+        task.classList.add('hidden');
+      }
+    });
+  }
+
+  // Save hidden tasks to localStorage
+  function saveHiddenTasks() {
+    const hiddenTasks = Array.from(tasks)
+      .filter((task) => task.classList.contains('hidden'))
+      .map((task) => task.getAttribute('data-task'));
+    localStorage.setItem('hiddenTasks', JSON.stringify(hiddenTasks));
+  }
+
+  // Update the toggle button text based on task visibility
+  function updateToggleButton(task) {
+    const toggleButton = task.querySelector('.toggle-btn');
+    const isHidden = task.classList.contains('hidden');
+    toggleButton.textContent = isHidden ? 'Show' : 'Hide';
+  }
+
+  // Initialize tasks with toggle buttons
+  tasks.forEach((task) => {
+    const toggleButton = document.createElement('button');
+    toggleButton.className = 'toggle-btn';
+    toggleButton.style.marginLeft = '10px';
+    toggleButton.style.backgroundColor = '#444';
+    toggleButton.style.color = 'white';
+    toggleButton.style.border = 'none';
+    toggleButton.style.padding = '5px 10px';
+    toggleButton.style.borderRadius = '4px';
+    toggleButton.style.cursor = 'pointer';
+    toggleButton.style.fontSize = '14px';
+
+    task.appendChild(toggleButton);
+
+    // Set the initial text based on the task state
+    updateToggleButton(task);
+
+    // Add event listener to toggle visibility
+    toggleButton.addEventListener('click', () => {
+      task.classList.toggle('hidden');
+      updateToggleButton(task); // Update button text dynamically
+      saveHiddenTasks(); // Save the updated state
+    });
+  });
+
+  // Add "Show Hidden Tasks" button
+  const showHiddenButton = document.createElement('button');
+  showHiddenButton.textContent = 'Show Hidden Tasks';
+  showHiddenButton.style.margin = '20px';
+  showHiddenButton.style.backgroundColor = '#007bff';
+  showHiddenButton.style.color = 'white';
+  showHiddenButton.style.border = 'none';
+  showHiddenButton.style.padding = '10px 20px';
+  showHiddenButton.style.borderRadius = '5px';
+  showHiddenButton.style.cursor = 'pointer';
+  showHiddenButton.style.fontSize = '16px';
+  document.body.prepend(showHiddenButton);
+
+  showHiddenButton.addEventListener('click', () => {
+    tasks.forEach((task) => {
+      if (task.classList.contains('hidden')) {
+        task.classList.remove('hidden'); // Temporarily show hidden tasks
+        updateToggleButton(task);
+      }
+    });
+    saveHiddenTasks(); // Update the state
+  });
+
+  // Load hidden task states on page load
+  loadHiddenTasks();
 });
-
-
-
-
-  
 
