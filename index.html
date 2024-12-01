@@ -16,15 +16,17 @@
     </div>
   </header>
 
-  <main>
-      <!-- Tabs Navigation -->
+    <!-- Container for main task content and event calendar -->
+    <main class="content-container">
+      <!-- Main Task Content -->
+      <div class="task-content">
       <div class="tabs-container">
   <div class="tabs">
     <button class="tab-btn active" data-tab="daily-tasks">Daily Tasks</button>
     <button class="tab-btn" data-tab="weekly-tasks">Weekly Tasks</button>
     <button class="tab-btn" data-tab="monthly-tasks">Monthly Tasks</button>
-    
   </div>
+  
     <!-- Daily Tasks -->
     <div id="daily-tasks" class="tab-content active">
       <h2>Daily Tasks</h2>
@@ -148,9 +150,55 @@
       </ul>
     </div>
   </div>
-  </main>
 
-  <script src="script.js">
-  </script>
+  <section id="event-calendar" class="side-chart">
+    <h2>Wilderness Flash Events</h2>
+    <div id="event-timers">
+      <div class="event">
+        <p>Spider Swarm: <span id="spider-swarm-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Unnatural Outcrop: <span id="unnatural-outcrop-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Stryke the Wyrm: <span id="stryke-the-wyrm-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Demon Stragglers: <span id="demon-stragglers-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Butterfly Swarm: <span id="butterfly-swarm-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>King Black Dragon Rampage: <span id="kbd-rampage-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Forgotten Soldiers: <span id="forgotten-soldiers-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Surprising Seedlings: <span id="surprising-seedlings-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Hellhound Pack: <span id="hellhound-pack-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Infernal Star: <span id="infernal-star-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Lost Souls: <span id="lost-souls-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Ramokee Incursion: <span id="ramokee-incursion-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Displaced Energy: <span id="displaced-energy-timer"></span></p>
+      </div>
+      <div class="event">
+        <p>Evil Bloodwood Tree: <span id="evil-bloodwood-tree-timer"></span></p>
+      </div>
+    </div>
+  </section>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>

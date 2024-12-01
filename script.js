@@ -173,12 +173,12 @@ document.addEventListener('DOMContentLoaded', function () {
     resetButton.addEventListener('click', () => {
         tasks.forEach(task => {
             task.classList.remove('completed');
+            // Assuming taskStorage is already defined for saving task state
             taskStorage.saveTaskState(task.getAttribute('data-task'), false);
             updateCheckMark(task);
         });
-        saveHiddenTasks();
 
-        // Add animation feedback
+        // Add animation feedback to the button
         resetButton.classList.add('clicked');
         setTimeout(() => {
             resetButton.classList.remove('clicked');
@@ -218,7 +218,61 @@ document.addEventListener('DOMContentLoaded', function () {
         task.style.padding = '10px';
         task.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
     });
-});
 
+    const events = [
+        { name: 'Butterfly Swarm', hour: 0, elementId: 'butterfly-swarm-timer' },
+        { name: 'King Black Dragon Rampage', hour: 1, elementId: 'kbd-rampage-timer' },
+        { name: 'Forgotten Soldiers', hour: 2, elementId: 'forgotten-soldiers-timer' },
+        { name: 'Surprising Seedlings', hour: 3, elementId: 'surprising-seedlings-timer' },
+        { name: 'Hellhound Pack', hour: 4, elementId: 'hellhound-pack-timer' },
+        { name: 'Infernal Star', hour: 5, elementId: 'infernal-star-timer' },
+        { name: 'Lost Souls', hour: 6, elementId: 'lost-souls-timer' },
+        { name: 'Ramokee Incursion', hour: 7, elementId: 'ramokee-incursion-timer' },
+        { name: 'Displaced Energy', hour: 8, elementId: 'displaced-energy-timer' },
+        { name: 'Evil Bloodwood Tree', hour: 9, elementId: 'evil-bloodwood-tree-timer' },
+        { name: 'Spider Swarm', hour: 10, elementId: 'spider-swarm-timer' },
+        { name: 'Unnatural Outcrop', hour: 11, elementId: 'unnatural-outcrop-timer' },
+        { name: 'Stryke the Wyrm', hour: 12, elementId: 'stryke-the-wyrm-timer' },
+        { name: 'Demon Stragglers', hour: 13, elementId: 'demon-stragglers-timer' },
+    ];
+
+    function updateEventTimers() {
+        const now = new Date();
+
+        events.forEach(event => {
+            const nextEventTime = getNextEventTime(now, event.hour);
+            const timeRemaining = nextEventTime - now;
+            document.getElementById(event.elementId).textContent = formatCountdown(timeRemaining);
+        });
+    }
+
+    function getNextEventTime(currentTime, eventHour) {
+        let nextEventDate = new Date(currentTime);
+        nextEventDate.setMinutes(0, 0, 0); // Set minutes, seconds, and milliseconds to 0
+
+        // If the current hour is less than the event hour, schedule it for today
+        if (currentTime.getHours() < eventHour) {
+            nextEventDate.setHours(eventHour);
+        } else if (currentTime.getHours() === eventHour && currentTime.getMinutes() === 0 && currentTime.getSeconds() === 0) {
+            nextEventDate.setHours(eventHour);
+        } else {
+            // If we have already passed the event time today, set it for 14 hours later
+            nextEventDate.setHours(currentTime.getHours() + 14);
+        }
+
+        return nextEventDate;
+    }
+
+    function formatCountdown(ms) {
+        const hours = Math.floor(ms / (1000 * 60 * 60));
+        const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((ms % (1000 * 60)) / 1000);
+        return `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+    }
+
+    // Start the event countdown timers
+    setInterval(updateEventTimers, 1000);
+    updateEventTimers();
+});
 
 
