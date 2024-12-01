@@ -185,6 +185,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 300); // Duration of the animation
     });
 
+     // Create container to hold both buttons together
+     const buttonContainer = document.createElement('div');
+     buttonContainer.classList.add('button-container'); // Add a class for styling
+     document.body.prepend(buttonContainer); // Add container to the top of the body
+
     const showHiddenButton = document.createElement('button');
     showHiddenButton.textContent = 'Show Hidden Tasks';
     showHiddenButton.classList.add('show-hidden-btn-style');
@@ -199,6 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         saveHiddenTasks();
     });
+
 
     // Load initial task state and start timers
     loadTaskState();
@@ -245,7 +251,40 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById(event.elementId).textContent = formatCountdown(timeRemaining);
         });
     }
-
+    function highlightNextEvent() {
+        const now = new Date();
+        let nextEvent = null;
+        let minTimeDifference = Infinity;
+    
+        events.forEach(event => {
+            const nextEventTime = getNextEventTime(now, event.hour);
+            const timeDifference = nextEventTime - now;
+    
+            if (timeDifference > 0 && timeDifference < minTimeDifference) {
+                minTimeDifference = timeDifference;
+                nextEvent = event;
+            }
+        });
+    
+        // Remove highlight from all events
+        document.querySelectorAll('.event').forEach(eventElement => {
+            eventElement.classList.remove('highlight');
+        });
+    
+        // Add highlight to the next event
+        if (nextEvent) {
+            const nextEventElement = document.getElementById(nextEvent.elementId).closest('.event');
+            nextEventElement.classList.add('highlight');
+        }
+    }
+    
+    // Call highlightNextEvent whenever timers are updated
+    setInterval(() => {
+        updateEventTimers();
+        highlightNextEvent();
+    }, 1000);
+    highlightNextEvent();
+    
     function getNextEventTime(currentTime, eventHour) {
         let nextEventDate = new Date(currentTime);
         nextEventDate.setMinutes(0, 0, 0); // Set minutes, seconds, and milliseconds to 0
