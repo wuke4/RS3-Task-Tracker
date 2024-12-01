@@ -355,5 +355,99 @@ header {
     padding: 5px;
   }
 }
+/* Existing styles retained as is */
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 768px) {
+  body {
+      font-size: 14px;  /* Slightly smaller base font size for readability on mobile */
+      padding: 10px;  /* Add padding to prevent elements from touching screen edges */
+  }
+
+  header h1 {
+      font-size: 22px;  /* Make the header font size smaller for mobile */
+  }
+
+  #timers p {
+      font-size: 16px;  /* Reduce timer text size slightly for mobile */
+  }
+
+  #timers span {
+      font-size: 20px;  /* Reduce the countdown text size to fit smaller screens */
+  }
+
+  .tabs {
+      flex-wrap: wrap;  /* Allow the tabs to wrap to a new line on smaller devices */
+      margin-bottom: 15px;
+  }
+
+  .tab-btn {
+      font-size: 14px;  /* Reduce tab button font size */
+      padding: 8px 15px;  /* Adjust padding for mobile to make buttons more manageable */
+  }
+
+  .task {
+      width: 80px;  /* Reduce the size of the task boxes to fit on smaller screens */
+      height: 80px;
+      margin: 8px;  /* Reduce margin between task boxes */
+  }
+
+  .task-btn {
+      font-size: 12px;  /* Reduce task button text size for better fit */
+      padding: 6px;  /* Adjust padding for better button fit on smaller screens */
+  }
+
+  .reset-btn-style,
+  .show-hidden-btn-style {
+      font-size: 16px;  /* Reduce button font sizes for mobile */
+      padding: 10px;  /* Reduce padding to make the buttons easier to handle on smaller screens */
+      width: 90%;  /* Adjust button width to fit within screen width comfortably */
+      max-width: 300px;  /* Set a maximum width for larger mobile devices */
+      margin: 15px auto;  /* Center the buttons with a smaller margin */
+  }
+
+  /* Adjustments for Tabs Navigation */
+  .tab-content {
+      padding: 10px;  /* Add padding to prevent content from touching screen edges */
+  }
+
+  .tab-content h2 {
+      font-size: 20px;  /* Make section titles smaller to better fit on mobile */
+  }
+}
+
+/* Larger Mobile and Tablet Devices */
+@media (max-width: 992px) {
+  .task {
+      width: 85px;  /* Make the task boxes slightly bigger than on smaller mobile devices */
+      height: 85px;
+  }
+
+  .task-btn {
+      font-size: 13px;  /* Increase button font size slightly for larger devices */
+      padding: 7px;
+  }
+
+  .tab-btn {
+      font-size: 15px;  /* Slightly larger tab button font size */
+      padding: 10px 18px;
+  }
+
+  #timers p {
+      font-size: 18px;  /* Adjust timer text size for larger screens */
+  }
+
+  #timers span {
+      font-size: 22px;  /* Match original styles for larger screens */
+  }
+
+  .reset-btn-style,
+  .show-hidden-btn-style {
+      width: 80%;
+      padding: 12px;
+      font-size: 17px;
+      max-width: 350px;
+  }
+}
 
 
