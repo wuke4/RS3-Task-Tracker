@@ -244,13 +244,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateEventTimers() {
         const now = new Date();
-
+    
         events.forEach(event => {
             const nextEventTime = getNextEventTime(now, event.hour);
             const timeRemaining = nextEventTime - now;
-            document.getElementById(event.elementId).textContent = formatCountdown(timeRemaining);
+    
+            // Update the timer display for each event
+            const eventTimerElement = document.getElementById(event.elementId);
+            eventTimerElement.textContent = formatCountdown(timeRemaining);
+    
+            // If the event just passed, calculate the new next time
+            if (timeRemaining <= 0) {
+                const newNextEventTime = new Date(nextEventTime.getTime() + 14 * 60 * 60 * 1000);
+                eventTimerElement.textContent = formatCountdown(newNextEventTime - now);
+            }
         });
     }
+    
     function highlightNextEvent() {
         const now = new Date();
         let nextEvent = null;
@@ -287,20 +297,19 @@ document.addEventListener('DOMContentLoaded', function () {
     
     function getNextEventTime(currentTime, eventHour) {
         let nextEventDate = new Date(currentTime);
-        nextEventDate.setMinutes(0, 0, 0); // Set minutes, seconds, and milliseconds to 0
-
-        // If the current hour is less than the event hour, schedule it for today
+        nextEventDate.setMinutes(0, 0, 0); // Reset minutes, seconds, and milliseconds to zero
+    
+        // If the current time is before the event hour, schedule it for today
         if (currentTime.getHours() < eventHour) {
             nextEventDate.setHours(eventHour);
-        } else if (currentTime.getHours() === eventHour && currentTime.getMinutes() === 0 && currentTime.getSeconds() === 0) {
-            nextEventDate.setHours(eventHour);
         } else {
-            // If we have already passed the event time today, set it for 14 hours later
+            // If the current time has passed the event hour, schedule for 14 hours later
             nextEventDate.setHours(currentTime.getHours() + 14);
         }
-
+    
         return nextEventDate;
     }
+    
 
     function formatCountdown(ms) {
         const hours = Math.floor(ms / (1000 * 60 * 60));
