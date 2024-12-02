@@ -544,13 +544,23 @@ body::-webkit-scrollbar-thumb {
   flex-grow: 1; /* Take up the remaining space */
 }
 
-
 .highlight {
   background-color: rgba(42, 219, 19, 0.473); /* Example highlight color */
   border: 2px solid rgb(197, 167, 167);    /* Example border to make it stand out */
   padding: 5px;             /* Optional padding for a better visual effect */
 }
 
+#next-event-display {
+  font-size: 1.2em;
+  font-weight: bold;
+  background-color: #bea411bb; /* Light blue background for visibility */
+  border: 2px solid #333; /* Darker border to make it stand out */
+  padding: 10px;
+  margin: 15px 0; /* Adds space above and below the element */
+  border-radius: 10px; /* Rounds the corners */
+  text-align: center; /* Centers the text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a slight shadow for depth */
+}
 
 
 

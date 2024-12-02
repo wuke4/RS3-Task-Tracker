@@ -29,19 +29,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function getNextBloodwoodEvent() {
         const now = getArizonaTime();
         let nextEvent = new Date(now);
-        nextEvent.setHours(9, 0, 0, 0);  // Set time to 09:00 AM
+        nextEvent.setHours(13, 0, 0, 0);  // Set the initial event time to 09:00 AM
     
-        if (now >= nextEvent && now.getHours() < 19) {
-            // If it's past 9:00 AM today but before 7:00 PM, add 14 hours to next event time
+        // If it's already past 9:00 AM, set the next event time to 14 hours from now
+        if (now >= nextEvent) {
             nextEvent = new Date(nextEvent.getTime() + 14 * 60 * 60 * 1000);
-        } else if (now.getHours() >= 19) {
-            // If it's after 7:00 PM, set the next event to 9:00 AM tomorrow
-            nextEvent.setDate(nextEvent.getDate() + 1);
-            nextEvent.setHours(-1, 0, 0, 0);
         }
     
         return nextEvent;
     }
+    
     
     function updateTimer() {
         const now = new Date(getArizonaTime());
@@ -248,27 +245,28 @@ document.addEventListener('DOMContentLoaded', function () {
         const now = getArizonaTime();
         const todayMidnight = new Date(now);
         todayMidnight.setHours(0, 0, 0, 0);
-
-        // Calculate the next occurrence based on offset
+    
+        // Calculate the next occurrence based on offset from midnight
         let nextEventTime = new Date(todayMidnight.getTime() + offsetMinutes * 60 * 1000);
-
-        // If the calculated event time is already in the past, move to the next day
+    
+        // If the calculated event time is already in the past, add 14 hours for the next occurrence
         if (nextEventTime <= now) {
-            nextEventTime.setDate(nextEventTime.getDate() + 1);
+            nextEventTime.setTime(nextEventTime.getTime() + 14 * 60 * 60 * 1000);
         }
-
+    
         return nextEventTime;
     }
     
     
+
     function updateEventTimers() {
         const now = getArizonaTime();
-
+    
         events.forEach(event => {
             const eventTimerElement = document.getElementById(event.elementId);
             const nextEventTime = calculateNextEventTime(event.offsetMinutes);
             const timeRemaining = nextEventTime - now;
-
+    
             // Update the event timer display
             if (eventTimerElement) {
                 eventTimerElement.textContent = formatCountdown(timeRemaining);
@@ -281,24 +279,24 @@ document.addEventListener('DOMContentLoaded', function () {
         const now = getArizonaTime();
         let nextEvent = null;
         let minTimeDifference = Infinity;
-
+    
         // Determine the next event
         events.forEach(event => {
             const nextEventTime = calculateNextEventTime(event.offsetMinutes);
             const timeDifference = nextEventTime - now;
-
+    
             if (timeDifference > 0 && timeDifference < minTimeDifference) {
                 minTimeDifference = timeDifference;
                 nextEvent = event;
             }
         });
-
+    
         // Remove highlight from all events
         document.querySelectorAll('.event').forEach(eventElement => {
             eventElement.classList.remove('highlight');
         });
-
-        // Highlight the next event
+    
+        // Highlight the next event and update the next event display
         if (nextEvent) {
             const nextEventElement = document.getElementById(nextEvent.elementId);
             if (nextEventElement) {
@@ -308,14 +306,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log(`Highlighting next event: ${nextEvent.name}`); // Debugging log
                 }
             }
+    
+            // Update the next event display
+            const nextEventDisplay = document.getElementById('next-event-display');
+            if (nextEventDisplay) {
+                const minutesRemaining = Math.floor(minTimeDifference / (1000 * 60));
+                nextEventDisplay.textContent = `Next Wilderness event in ${minutesRemaining} minutes: ${nextEvent.name}`;
+            }
         }
     }
     
-    function getNextEventTime(currentTime, offsetMinutes) {
-        const nextEventTime = calculateNextEventTime(offsetMinutes);
-        return nextEventTime;
-    }
-
     function startTimers() {
         setInterval(() => {
             updateTimer();
@@ -325,8 +325,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     startTimers();
-      
-    
-});
-
-
+});    
