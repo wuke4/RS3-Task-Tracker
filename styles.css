@@ -330,6 +330,7 @@ header {
 .show-hidden-btn-style,
 .reset-btn-style {
   display: inline-block;
+  margin-top: 5px;
   padding: 10px 20px;
   background: linear-gradient(45deg, #ffcc00, #ff8800);
   color: white;

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () { 
     const tasks = document.querySelectorAll('.task');
     const weeklyTimer = document.getElementById('weekly-timer');
     const dailyTimer = document.getElementById('daily-timer');
@@ -8,38 +8,95 @@ document.addEventListener('DOMContentLoaded', function () {
         return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Phoenix' }));
     }
 
-
     const events = [
-        { name: 'Spider Swarm', elementId: 'spider-swarm-timer', offsetMinutes: 0 },
-        { name: 'Unnatural Outcrop', elementId: 'unnatural-outcrop-timer', offsetMinutes: 60 },
-        { name: 'Stryke the Wyrm', elementId: 'stryke-the-wyrm-timer', offsetMinutes: 120 },
-        { name: 'Demon Stragglers', elementId: 'demon-stragglers-timer', offsetMinutes: 180 },
-        { name: 'Butterfly Swarm', elementId: 'butterfly-swarm-timer', offsetMinutes: 240 },
-        { name: 'King Black Dragon Rampage', elementId: 'kbd-rampage-timer', offsetMinutes: 300 },
         { name: 'Forgotten Soldiers', elementId: 'forgotten-soldiers-timer', offsetMinutes: 360 },
         { name: 'Surprising Seedlings', elementId: 'surprising-seedlings-timer', offsetMinutes: 420 },
         { name: 'Hellhound Pack', elementId: 'hellhound-pack-timer', offsetMinutes: 480 },
         { name: 'Infernal Star', elementId: 'infernal-star-timer', offsetMinutes: 540 },
         { name: 'Lost Souls', elementId: 'lost-souls-timer', offsetMinutes: 600 },
         { name: 'Ramokee Incursion', elementId: 'ramokee-incursion-timer', offsetMinutes: 660 },
-        { name: 'Displaced Energy', elementId: 'displaced-energy-timer', offsetMinutes: -120 },
-        { name: 'Evil Bloodwood Tree', elementId: 'evil-bloodwood-tree-timer', offsetMinutes: -60 },
+        { name: 'Displaced Energy', elementId: 'displaced-energy-timer', offsetMinutes: 720 },
+        { name: 'Evil Bloodwood Tree', elementId: 'evil-bloodwood-tree-timer', offsetMinutes: 780 },
+        { name: 'Spider Swarm', elementId: 'spider-swarm-timer', offsetMinutes: 840 },
+        { name: 'Unnatural Outcrop', elementId: 'unnatural-outcrop-timer', offsetMinutes: 900 },
+        { name: 'Stryke the Wyrm', elementId: 'stryke-the-wyrm-timer', offsetMinutes: 960 },
+        { name: 'Demon Stragglers', elementId: 'demon-stragglers-timer', offsetMinutes: 1020 },
+        { name: 'Butterfly Swarm', elementId: 'butterfly-swarm-timer', offsetMinutes: 1080 },
+        { name: 'King Black Dragon Rampage', elementId: 'kbd-rampage-timer', offsetMinutes: 1140 }
     ];
     
-    function getNextBloodwoodEvent() {
+
+    function calculateNextEventTime(offsetMinutes) {
         const now = getArizonaTime();
-        let nextEvent = new Date(now);
-        nextEvent.setHours(13, 0, 0, 0);  // Set the initial event time to 09:00 AM
+        const todayMidnight = new Date(now);
+        todayMidnight.setHours(0, 0, 0, 0);
     
-        // If it's already past 9:00 AM, set the next event time to 14 hours from now
-        if (now >= nextEvent) {
-            nextEvent = new Date(nextEvent.getTime() + 14 * 60 * 60 * 1000);
+        // Calculate the next occurrence based on offset
+        let nextEventTime = new Date(todayMidnight.getTime() + offsetMinutes * 60 * 1000);
+    
+        // If the calculated event time is already in the past, move to the next occurrence (add 14 hours until it's in the future)
+        while (nextEventTime <= now) {
+            nextEventTime = new Date(nextEventTime.getTime() + 14 * 60 * 60 * 1000);
         }
     
-        return nextEvent;
+        return nextEventTime;
+    }
+     
+
+    function updateEventTimers() {
+        const now = getArizonaTime();
+    
+        events.forEach(event => {
+            const eventTimerElement = document.getElementById(event.elementId);
+            let nextEventTime = calculateNextEventTime(event.offsetMinutes);
+            let timeRemaining = nextEventTime - now;
+    
+            // Update the event timer display
+            if (eventTimerElement) {
+                eventTimerElement.textContent = formatCountdown(timeRemaining);
+            }
+        });
     }
     
+    function highlightNextEvent() {
+        const now = getArizonaTime();
+        let nextEvent = null;
+        let minTimeDifference = Infinity;
     
+        // Determine the next event
+        events.forEach(event => {
+            const nextEventTime = calculateNextEventTime(event.offsetMinutes);
+            let timeDifference = nextEventTime - now;
+    
+            // Select the event with the smallest positive time difference
+            if (timeDifference > 0 && timeDifference < minTimeDifference) {
+                minTimeDifference = timeDifference;
+                nextEvent = event;
+            }
+        });
+    
+        // Remove highlight from all events
+        document.querySelectorAll('.event').forEach(eventElement => {
+            eventElement.classList.remove('highlight');
+        });
+    
+        // Highlight the next event
+        if (nextEvent) {
+            const nextEventElement = document.getElementById(nextEvent.elementId);
+            if (nextEventElement) {
+                const eventContainer = nextEventElement.closest('.event');
+                if (eventContainer) {
+                    eventContainer.classList.add('highlight');
+                    // Update next event display
+                    const nextEventDisplay = document.getElementById('next-event-display');
+                    if (nextEventDisplay) {
+                        nextEventDisplay.textContent = `Next Wilderness event in ${formatCountdown(minTimeDifference)}: ${nextEvent.name}`;
+                    }
+                }
+            }
+        }
+    } 
+
     function updateTimer() {
         const now = new Date(getArizonaTime());
     
@@ -57,8 +114,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
         bloodwoodTimer.textContent = `${formatTime(timeRemaining)} (Next: ${nextEventTimeString})`;
     }
-    
-    
 
     function getNextReset(hour, minute) {
         const now = new Date(getArizonaTime());
@@ -78,12 +133,17 @@ document.addEventListener('DOMContentLoaded', function () {
         return nextReset;
     }
 
-    function formatTime(timeLeft) {
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-        return `${days > 0 ? `${days}d ` : ''}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+    function getNextBloodwoodEvent() {
+        const now = getArizonaTime();
+        let nextEvent = new Date(now);
+        nextEvent.setHours(13, 0, 0, 0);  // Set the initial event time to 09:00 AM
+    
+        // If it's already past 9:00 AM, set the next event time to 14 hours from now
+        if (now >= nextEvent) {
+            nextEvent = new Date(nextEvent.getTime() + 14 * 60 * 60 * 1000);
+        }
+    
+        return nextEvent;
     }
 
     // Task storage and state management
@@ -234,86 +294,20 @@ document.addEventListener('DOMContentLoaded', function () {
         task.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
     });
 
+    function formatTime(timeLeft) {
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        return `${days > 0 ? `${days}d ` : ''}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+    }
+
     function formatCountdown(ms) {
+        if (ms < 0) ms = 0; // Prevent negative countdown
         const hours = Math.floor(ms / (1000 * 60 * 60));
         const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((ms % (1000 * 60)) / 1000);
         return `${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
-    }
-
-    function calculateNextEventTime(offsetMinutes) {
-        const now = getArizonaTime();
-        const todayMidnight = new Date(now);
-        todayMidnight.setHours(0, 0, 0, 0);
-    
-        // Calculate the next occurrence based on offset from midnight
-        let nextEventTime = new Date(todayMidnight.getTime() + offsetMinutes * 60 * 1000);
-    
-        // If the calculated event time is already in the past, add 14 hours for the next occurrence
-        if (nextEventTime <= now) {
-            nextEventTime.setTime(nextEventTime.getTime() + 14 * 60 * 60 * 1000);
-        }
-    
-        return nextEventTime;
-    }
-    
-    
-
-    function updateEventTimers() {
-        const now = getArizonaTime();
-    
-        events.forEach(event => {
-            const eventTimerElement = document.getElementById(event.elementId);
-            const nextEventTime = calculateNextEventTime(event.offsetMinutes);
-            const timeRemaining = nextEventTime - now;
-    
-            // Update the event timer display
-            if (eventTimerElement) {
-                eventTimerElement.textContent = formatCountdown(timeRemaining);
-            }
-        });
-    }
-
-    
-    function highlightNextEvent() {
-        const now = getArizonaTime();
-        let nextEvent = null;
-        let minTimeDifference = Infinity;
-    
-        // Determine the next event
-        events.forEach(event => {
-            const nextEventTime = calculateNextEventTime(event.offsetMinutes);
-            const timeDifference = nextEventTime - now;
-    
-            if (timeDifference > 0 && timeDifference < minTimeDifference) {
-                minTimeDifference = timeDifference;
-                nextEvent = event;
-            }
-        });
-    
-        // Remove highlight from all events
-        document.querySelectorAll('.event').forEach(eventElement => {
-            eventElement.classList.remove('highlight');
-        });
-    
-        // Highlight the next event and update the next event display
-        if (nextEvent) {
-            const nextEventElement = document.getElementById(nextEvent.elementId);
-            if (nextEventElement) {
-                const eventContainer = nextEventElement.closest('.event');
-                if (eventContainer) {
-                    eventContainer.classList.add('highlight');
-                    console.log(`Highlighting next event: ${nextEvent.name}`); // Debugging log
-                }
-            }
-    
-            // Update the next event display
-            const nextEventDisplay = document.getElementById('next-event-display');
-            if (nextEventDisplay) {
-                const minutesRemaining = Math.floor(minTimeDifference / (1000 * 60));
-                nextEventDisplay.textContent = `Next Wilderness event in ${minutesRemaining} minutes: ${nextEvent.name}`;
-            }
-        }
     }
     
     function startTimers() {
@@ -325,4 +319,4 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     startTimers();
-});    
+});
