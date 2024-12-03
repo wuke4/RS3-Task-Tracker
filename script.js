@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dailyTimer.textContent = formatTime(getNextReset(17, 0) - now);
     
         // Update Bloodwood tree timer with new event times
-        const nextBloodwoodEvent = getNextBloodwoodEvent();
+        const nextBloodwoodEvent = calculateNextEventTime(180); // No special logic, just calculating next occurrence
         const timeRemaining = nextBloodwoodEvent - now;
     
         // Format the next event time for display (e.g., "1:00 PM")
@@ -112,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
         bloodwoodTimer.textContent = `${formatTime(timeRemaining)} (Next: ${nextEventTimeString})`;
     }
+    
 
     function getNextReset(hour, minute) {
         const now = new Date(getArizonaTime());
