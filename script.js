@@ -9,20 +9,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const events = [
-        { name: 'Forgotten Soldiers', elementId: 'forgotten-soldiers-timer', offsetMinutes: 360 },
-        { name: 'Surprising Seedlings', elementId: 'surprising-seedlings-timer', offsetMinutes: 420 },
-        { name: 'Hellhound Pack', elementId: 'hellhound-pack-timer', offsetMinutes: 480 },
-        { name: 'Infernal Star', elementId: 'infernal-star-timer', offsetMinutes: 540 },
-        { name: 'Lost Souls', elementId: 'lost-souls-timer', offsetMinutes: 600 },
-        { name: 'Ramokee Incursion', elementId: 'ramokee-incursion-timer', offsetMinutes: 660 },
-        { name: 'Displaced Energy', elementId: 'displaced-energy-timer', offsetMinutes: 720 },
-        { name: 'Evil Bloodwood Tree', elementId: 'evil-bloodwood-tree-timer', offsetMinutes: 780 },
-        { name: 'Spider Swarm', elementId: 'spider-swarm-timer', offsetMinutes: 840 },
-        { name: 'Unnatural Outcrop', elementId: 'unnatural-outcrop-timer', offsetMinutes: 900 },
-        { name: 'Stryke the Wyrm', elementId: 'stryke-the-wyrm-timer', offsetMinutes: 960 },
-        { name: 'Demon Stragglers', elementId: 'demon-stragglers-timer', offsetMinutes: 1020 },
-        { name: 'Butterfly Swarm', elementId: 'butterfly-swarm-timer', offsetMinutes: 1080 },
-        { name: 'King Black Dragon Rampage', elementId: 'kbd-rampage-timer', offsetMinutes: 1140 }
+        { name: 'Forgotten Soldiers', elementId: 'forgotten-soldiers-timer', offsetMinutes: 600 },
+        { name: 'Surprising Seedlings', elementId: 'surprising-seedlings-timer', offsetMinutes: 660 },
+        { name: 'Hellhound Pack', elementId: 'hellhound-pack-timer', offsetMinutes: 720 },
+        { name: 'Infernal Star', elementId: 'infernal-star-timer', offsetMinutes: 780 },
+        { name: 'Lost Souls', elementId: 'lost-souls-timer', offsetMinutes: 0 },
+        { name: 'Ramokee Incursion', elementId: 'ramokee-incursion-timer', offsetMinutes: 60 },
+        { name: 'Displaced Energy', elementId: 'displaced-energy-timer', offsetMinutes: 120 },
+        { name: 'Evil Bloodwood Tree', elementId: 'evil-bloodwood-tree-timer', offsetMinutes: 180 },
+        { name: 'Spider Swarm', elementId: 'spider-swarm-timer', offsetMinutes: 240 },
+        { name: 'Unnatural Outcrop', elementId: 'unnatural-outcrop-timer', offsetMinutes: 300 },
+        { name: 'Stryke the Wyrm', elementId: 'stryke-the-wyrm-timer', offsetMinutes: 360 },
+        { name: 'Demon Stragglers', elementId: 'demon-stragglers-timer', offsetMinutes: 420 },
+        { name: 'Butterfly Swarm', elementId: 'butterfly-swarm-timer', offsetMinutes: 480 },
+        { name: 'King Black Dragon Rampage', elementId: 'kbd-rampage-timer', offsetMinutes: 540 }
     ];
     
 
@@ -31,14 +31,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const todayMidnight = new Date(now);
         todayMidnight.setHours(0, 0, 0, 0);
     
-        // Calculate the next occurrence based on offset
+        // Calculate the initial event time based on midnight and offset
         let nextEventTime = new Date(todayMidnight.getTime() + offsetMinutes * 60 * 1000);
     
-        // If the calculated event time is already in the past, move to the next occurrence (add 14 hours until it's in the future)
+        // Ensure the calculated event time is in the future
         while (nextEventTime <= now) {
-            nextEventTime = new Date(nextEventTime.getTime() + 14 * 60 * 60 * 1000);
+            nextEventTime = new Date(nextEventTime.getTime() + 14 * 60 * 60 * 1000); // Increment by 14 hours
         }
-    
         return nextEventTime;
     }
      
@@ -63,12 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
         let nextEvent = null;
         let minTimeDifference = Infinity;
     
-        // Determine the next event
+        // Determine the next event by finding the minimum time difference that is positive
         events.forEach(event => {
             const nextEventTime = calculateNextEventTime(event.offsetMinutes);
-            let timeDifference = nextEventTime - now;
+            const timeDifference = nextEventTime - now;
     
-            // Select the event with the smallest positive time difference
             if (timeDifference > 0 && timeDifference < minTimeDifference) {
                 minTimeDifference = timeDifference;
                 nextEvent = event;
@@ -95,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         }
-    } 
+    }
 
     function updateTimer() {
-        const now = new Date(getArizonaTime());
+        const now = getArizonaTime();
     
         // Update weekly and daily timers
         weeklyTimer.textContent = formatTime(getNextWeeklyReset(17, 0) - now);
@@ -108,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const nextBloodwoodEvent = getNextBloodwoodEvent();
         const timeRemaining = nextBloodwoodEvent - now;
     
-        // Format the next event time for display (e.g., "9:00 AM")
+        // Format the next event time for display (e.g., "1:00 PM")
         const options = { hour: 'numeric', minute: '2-digit', timeZone: 'America/Phoenix' };
         const nextEventTimeString = nextBloodwoodEvent.toLocaleTimeString('en-US', options);
     
@@ -136,13 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function getNextBloodwoodEvent() {
         const now = getArizonaTime();
         let nextEvent = new Date(now);
-        nextEvent.setHours(13, 0, 0, 0);  // Set the initial event time to 09:00 AM
-    
-        // If it's already past 9:00 AM, set the next event time to 14 hours from now
-        if (now >= nextEvent) {
-            nextEvent = new Date(nextEvent.getTime() + 14 * 60 * 60 * 1000);
-        }
-    
+        nextEvent.setHours(3, 0, 0, 0);  // Set the initial event time to 1:00 PM
         return nextEvent;
     }
 
