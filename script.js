@@ -157,6 +157,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Event listeners for tasks
     tasks.forEach(task => {
+
+        
         task.addEventListener('click', () => {
             if (!task.classList.contains('hidden')) {
                 task.classList.toggle('completed');
@@ -168,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const checkMark = document.createElement('span');
         checkMark.className = 'check-mark';
-        checkMark.textContent = '✔';
         checkMark.style.display = 'none';
         task.appendChild(checkMark);
         updateCheckMark(task);

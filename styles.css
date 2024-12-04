@@ -65,39 +65,15 @@ ul {
   margin: 0;
 }
 
-.task {
-  margin-bottom: 15px;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-}
 
-/* Task Button */
-.task-btn {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  background-color: #444;
-  color: white;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 8px rgba(255, 238, 0, 0.7);
-  font-family: 'Cinzel', serif;
-}
 
 .task-btn:hover {
   background-color: #666;
   box-shadow: 0 0 12px rgb(72, 255, 0);
 }
 
-.task.completed .task-btn {
+.task.completed  {
   background-color: green;
-  text-decoration: line-through;
-  color: #ddd;
 }
 
 /* Hide Button Styling */
@@ -264,22 +240,6 @@ header {
   margin: 15px auto; /* Center the entire list within the page */
 }
 
-/* Smaller Task Box Styling */
-.task {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90px; /* Reduced width */
-  height: 90px; /* Reduced height */
-  background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  padding: 8px; /* Reduced padding */
-  color: white;
-}
-
 /* Task Section Styling */
 .task {
   display: inline-block;
@@ -301,8 +261,8 @@ header {
 }
 
 .task-btn {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
   padding: 12px;
   background-color: #444;
   border: none;
@@ -312,6 +272,7 @@ header {
   cursor: pointer;
   transition: all 0.3s;
   font-family: 'Cinzel', serif;
+  position: relative;
 }
 
 .task-btn:hover {
@@ -604,8 +565,23 @@ body::-webkit-scrollbar-thumb {
   }
 }
 
+/* Styling for the image inside the button */
+.task-image {
+  width: 100%;                    /* Make the image fill the button width */
+  height: 100%;                   /* Make the image fill the button height */
+  object-fit: cover;              /* Ensure the image maintains its aspect ratio */
+  border-radius: 10px;            /* Optional: add rounded corners to the image */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: add a subtle shadow for a nice effect */
+}
 
-
-
-
+/* Styling for the check mark */
+.check-mark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: rgb(114, 255, 96);
+  font-size: 1.5em;
+  display: none;
+  z-index: 10;
+}
 
