@@ -9,71 +9,70 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const events = [
-        { name: 'Forgotten Soldiers', elementId: 'forgotten-soldiers-timer', offsetMinutes: 600 },
-        { name: 'Surprising Seedlings', elementId: 'surprising-seedlings-timer', offsetMinutes: 660 },
-        { name: 'Hellhound Pack', elementId: 'hellhound-pack-timer', offsetMinutes: 720 },
-        { name: 'Infernal Star', elementId: 'infernal-star-timer', offsetMinutes: 780 },
-        { name: 'Lost Souls', elementId: 'lost-souls-timer', offsetMinutes: 0 },
-        { name: 'Ramokee Incursion', elementId: 'ramokee-incursion-timer', offsetMinutes: 60 },
-        { name: 'Displaced Energy', elementId: 'displaced-energy-timer', offsetMinutes: 120 },
-        { name: 'Evil Bloodwood Tree', elementId: 'evil-bloodwood-tree-timer', offsetMinutes: 180 },
-        { name: 'Spider Swarm', elementId: 'spider-swarm-timer', offsetMinutes: 240 },
-        { name: 'Unnatural Outcrop', elementId: 'unnatural-outcrop-timer', offsetMinutes: 300 },
-        { name: 'Stryke the Wyrm', elementId: 'stryke-the-wyrm-timer', offsetMinutes: 360 },
-        { name: 'Demon Stragglers', elementId: 'demon-stragglers-timer', offsetMinutes: 420 },
-        { name: 'Butterfly Swarm', elementId: 'butterfly-swarm-timer', offsetMinutes: 480 },
-        { name: 'King Black Dragon Rampage', elementId: 'kbd-rampage-timer', offsetMinutes: 540 }
-    ];
+        { name: 'Spider Swarm', elementId: 'spider-swarm-timer', offsetMinutes: 0 },
+        { name: 'Unnatural Outcrop', elementId: 'unnatural-outcrop-timer', offsetMinutes: 60 },
+        { name: 'Stryke the Wyrm', elementId: 'stryke-the-wyrm-timer', offsetMinutes: 120 },
+        { name: 'Demon Stragglers', elementId: 'demon-stragglers-timer', offsetMinutes: 180 },
+        { name: 'Butterfly Swarm', elementId: 'butterfly-swarm-timer', offsetMinutes: 240 },
+        { name: 'King Black Dragon Rampage', elementId: 'kbd-rampage-timer', offsetMinutes: 300 },
+        { name: 'Forgotten Soldiers', elementId: 'forgotten-soldiers-timer', offsetMinutes: 360 },
+        { name: 'Surprising Seedlings', elementId: 'surprising-seedlings-timer', offsetMinutes: 420 },
+        { name: 'Hellhound Pack', elementId: 'hellhound-pack-timer', offsetMinutes: 480 },
+        { name: 'Infernal Star', elementId: 'infernal-star-timer', offsetMinutes: 540 },
+        { name: 'Lost Souls', elementId: 'lost-souls-timer', offsetMinutes: 600 },
+        { name: 'Ramokee Incursion', elementId: 'ramokee-incursion-timer', offsetMinutes: 660 },
+        { name: 'Displaced Energy', elementId: 'displaced-energy-timer', offsetMinutes: 720 },
+        { name: 'Evil Bloodwood Tree', elementId: 'evil-bloodwood-tree-timer', offsetMinutes: 780 }
+    ];    
     
-
     function calculateNextEventTime(offsetMinutes) {
-        const now = getArizonaTime();
+        const now = new Date();
         const todayMidnight = new Date(now);
-        todayMidnight.setHours(0, 0, 0, 0);
+        todayMidnight.setHours(0, 0, 0, 0); // Reference point is midnight
     
-        // Calculate the initial event time based on midnight and offset
+        // Calculate initial event time from today's midnight + offset
         let nextEventTime = new Date(todayMidnight.getTime() + offsetMinutes * 60 * 1000);
     
-        // Ensure the calculated event time is in the future
+        // If this event has already passed in this cycle, shift to the next occurrence
         while (nextEventTime <= now) {
-            nextEventTime = new Date(nextEventTime.getTime() + 14 * 60 * 60 * 1000); // Increment by 14 hours
+            nextEventTime = new Date(nextEventTime.getTime() + 14 * 60 * 60 * 1000); // Add 14 hours
         }
+    
         return nextEventTime;
     }
      
-
     function updateEventTimers() {
-        const now = getArizonaTime();
+        const now = new Date();
     
         events.forEach(event => {
             const eventTimerElement = document.getElementById(event.elementId);
-            let nextEventTime = calculateNextEventTime(event.offsetMinutes);
-            let timeRemaining = nextEventTime - now;
+            const nextEventTime = calculateNextEventTime(event.offsetMinutes);
+            const timeRemaining = nextEventTime - now;
     
-            // Update the event timer display
+            // Update the timer display
             if (eventTimerElement) {
                 eventTimerElement.textContent = formatCountdown(timeRemaining);
             }
         });
-    }
+    }    
     
     function highlightNextEvent() {
-        const now = getArizonaTime();
+        const now = new Date();
         let nextEvent = null;
         let minTimeDifference = Infinity;
     
-        // Determine the next event by finding the minimum time difference that is positive
         events.forEach(event => {
             const nextEventTime = calculateNextEventTime(event.offsetMinutes);
             const timeDifference = nextEventTime - now;
     
+            // Check for the closest upcoming event
             if (timeDifference > 0 && timeDifference < minTimeDifference) {
                 minTimeDifference = timeDifference;
                 nextEvent = event;
             }
         });
     
-        // Remove highlight from all events
+        // Remove highlights from all events
         document.querySelectorAll('.event').forEach(eventElement => {
             eventElement.classList.remove('highlight');
         });
@@ -85,7 +84,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 const eventContainer = nextEventElement.closest('.event');
                 if (eventContainer) {
                     eventContainer.classList.add('highlight');
-                    // Update next event display
+    
+                    // Update the next event display
                     const nextEventDisplay = document.getElementById('next-event-display');
                     if (nextEventDisplay) {
                         nextEventDisplay.textContent = `Next Wilderness event in ${formatCountdown(minTimeDifference)}: ${nextEvent.name}`;
@@ -93,25 +93,26 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         }
-    }
+    }       
+    
 
     function updateTimer() {
-        const now = getArizonaTime();
+        const now = new Date();
     
-        // Update weekly and daily timers
-        weeklyTimer.textContent = formatTime(getNextWeeklyReset(17, 0) - now);
-        dailyTimer.textContent = formatTime(getNextReset(17, 0) - now);
+        // Update daily and weekly reset timers
+        const dailyReset = getNextReset(17, 0); // Daily reset at 5:00 PM
+        const weeklyReset = getNextWeeklyReset(17, 0); // Weekly reset at 5:00 PM on Tuesday
+        dailyTimer.textContent = formatCountdown(dailyReset - now);
+        weeklyTimer.textContent = formatCountdown(weeklyReset - now);
     
-        // Update Bloodwood tree timer with new event times
-        const nextBloodwoodEvent = calculateNextEventTime(180); // No special logic, just calculating next occurrence
-        const timeRemaining = nextBloodwoodEvent - now;
-    
-        // Format the next event time for display (e.g., "1:00 PM")
-        const options = { hour: 'numeric', minute: '2-digit', timeZone: 'America/Phoenix' };
-        const nextEventTimeString = nextBloodwoodEvent.toLocaleTimeString('en-US', options);
-    
-        bloodwoodTimer.textContent = `${formatTime(timeRemaining)} (Next: ${nextEventTimeString})`;
+        // Align Tree Timer with the Evil Bloodwood Tree event
+        const bloodwoodEvent = events.find(event => event.name === "Evil Bloodwood Tree");
+        if (bloodwoodEvent) {
+            const nextBloodwoodEvent = calculateNextEventTime(bloodwoodEvent.offsetMinutes);
+            bloodwoodTimer.textContent = formatCountdown(nextBloodwoodEvent - now);
+        }
     }
+    
     
 
     function getNextReset(hour, minute) {
@@ -220,6 +221,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function scrollTasks(direction) {
+        const container = document.querySelector('.task-content ul');
+        const scrollAmount = 200; // Pixels to scroll
+      
+        if (direction === 'left') {
+          container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else if (direction === 'right') {
+          container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      }
+      
+
     // Tab management
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -232,6 +245,36 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById(button.getAttribute('data-tab')).classList.add('active');
         });
     });
+
+    document.querySelectorAll('.task-btn').forEach(button => {
+        button.addEventListener('mouseover', event => {
+          // Create tooltip element
+          const tooltip = document.createElement('div');
+          tooltip.className = 'tooltip tooltip-glow'; // Add tooltip classes
+          tooltip.textContent = button.getAttribute('data-info'); // Get data-info content
+          document.body.appendChild(tooltip);
+      
+          // Calculate position considering scroll offsets
+          const rect = button.getBoundingClientRect();
+          const scrollX = window.scrollX || document.documentElement.scrollLeft;
+          const scrollY = window.scrollY || document.documentElement.scrollTop;
+      
+          tooltip.style.left = `${rect.left + scrollX + rect.width / 2 - tooltip.offsetWidth / 2}px`;
+          tooltip.style.top = `${rect.top + scrollY - tooltip.offsetHeight - 10}px`;
+      
+          // Fade in the tooltip
+          requestAnimationFrame(() => {
+            tooltip.style.opacity = '1';
+            tooltip.style.transform = 'translateY(0) scale(1)';
+          });
+      
+          // Remove the tooltip on mouse leave
+          button.addEventListener('mouseleave', () => {
+            tooltip.style.opacity = '0'; // Fade out
+            setTimeout(() => tooltip.remove(), 300); // Remove after animation
+          });
+        });
+      });
 
     // Reset and show hidden buttons
     const resetButton = document.createElement('button');
@@ -276,17 +319,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Update task button style to look like small boxes
     tasks.forEach(task => {
-        task.style.width = '100px';
-        task.style.height = '100px';
         task.style.display = 'inline-block';
         task.style.margin = '10px';
         task.style.border = '1px solid #444';
         task.style.borderRadius = '10px';
         task.style.textAlign = 'center';
-        task.style.verticalAlign = 'top';
         task.style.padding = '10px';
         task.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
     });
+    
 
     function formatTime(timeLeft) {
         const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
@@ -295,6 +336,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
         return `${days > 0 ? `${days}d ` : ''}${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
     }
+
+    events.forEach(event => {
+        const calculatedTime = calculateNextEventTime(event.offsetMinutes);
+        console.log(`Event: ${event.name}, Next Time: ${calculatedTime}`);
+    });    
 
     function formatCountdown(ms) {
         if (ms < 0) ms = 0; // Prevent negative countdown
@@ -309,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function () {
             updateTimer();
             updateEventTimers();
             highlightNextEvent();
-        }, 1000);
+        }, 1000); // Update every second
     }
     
     startTimers();

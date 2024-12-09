@@ -86,203 +86,234 @@
              <button class="tab-btn" data-tab="monthly-tasks">Monthly Tasks</button>
         </div>
   
-    <!-- Daily Tasks -->
-    <div id="daily-tasks" class="tab-content active">
-      <h2>Daily Tasks</h2>
-      <ul>   
-        <li class="task" data-task="jack-of-trades">
-          <button class="task-btn">
-              <img src="jack-of-trades.png" alt="Jack of Trades" class="task-image">
-              <span class="check-mark">✔</span>
-          </button>
-      </li>      
-      <li class="task" data-task="buckets-of-sand">
-        <button class="task-btn">
-            <img src="sand.png" alt="Buckets of Sand" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>
-    </li>  
-        <li class="task" data-task="blacksmithing-helmet">
-          <button class="task-btn">
-            <img src="smith.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>
-        </li>
-        <li class="task" data-task="guthixian-cache">
-          <button class="task-btn">
-            <img src="cache.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>
-        </li>
-        <li class="task" data-task="player-owned-farm">
-          <button class="task-btn">
-            <img src="farm.png" alt="farm" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        
-      </li>
-        <li class="task" data-task="shop-run">
-          <button class="task-btn">
-            <img src="shop.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="potato-cactus">
-          <button class="task-btn">
-            <img src="potato.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="wicked-hood">
-          <button class="task-btn">
-            <img src="hood.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="vis-wax">
-          <button class="task-btn">
-            <img src="wax.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="buckets-of-slime">
-          <button class="task-btn">
-            <img src="slime.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="nemi-forest">
-          <button class="task-btn">
-            <img src="forest.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="mine-sandstone">
-          <button class="task-btn">
-            <img src="sandstone.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="gorajo-dungeon">
-          <button class="task-btn">
-            <img src="gorajo.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="reaper-task">
-          <button class="task-btn">
-            <img src="reaper.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="travelling-merchant">
-          <button class="task-btn">
-            <img src="merchant.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="daily-challenges">
-          <button class="task-btn">
-            <img src="daily.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="soul-obelisk">
-          <button class="task-btn">
-            <img src="soul.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        </li>
-        <li class="task" data-task="city-of-um-free-supplies">
-          <button class="task-btn">
-            <img src="um.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>        
-      </li>
-      </ul>
-    </div>
+<!-- Daily Tasks -->
+<div id="daily-tasks" class="tab-content active">
+  <h2>Daily Tasks</h2>
+  <ul>
+    <li class="task" data-task="jack-of-trades">
+      <button class="task-btn" data-info="Activate the Jack of Trades aura and gain experience in 10 different skills within 3 hours to receive an experience reward.">
+        <img src="jack-of-trades.png" alt="Jack of Trades" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="buckets-of-sand">
+      <button class="task-btn" data-info="After completing 'The Hand in the Sand' quest, speak to Bert in Yanille daily to have 84 buckets of sand delivered to your bank. Completing the Ardougne elite tasks increases this to 120 buckets.">
+        <img src="sand.png" alt="Buckets of Sand" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="blacksmithing-helmet">
+      <button class="task-btn" data-info="Wear the Blacksmith's helmet to gain additional Smithing experience while smithing items.">
+        <img src="smith.png" alt="Blacksmithing Helmet" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="guthixian-cache">
+      <button class="task-btn" data-info="Participate in the Guthixian Cache D&D every three hours to earn Divination experience and boost your Divination level temporarily.">
+        <img src="cache.png" alt="Guthixian Cache" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="player-owned-farm">
+      <button class="task-btn" data-info="Manage your Player-Owned Farm by feeding, breeding, and harvesting animals to gain Farming and Herblore experience.">
+        <img src="farm.png" alt="Player-Owned Farm" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="shop-run">
+      <button class="task-btn" data-info="Visit various shops daily to purchase items that can be resold for profit or used in skilling.">
+        <img src="shop.png" alt="Shop Run" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="potato-cactus">
+      <button class="task-btn" data-info="After completing the medium Desert tasks, speak to the Weird Old Man outside the Kalphite Hive to receive 20 noted potato cacti daily. This increases with higher tier tasks.">
+        <img src="potato.png" alt="Potato Cactus" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="wicked-hood">
+      <button class="task-btn" data-info="Use the Wicked Hood daily to receive free rune essence, runes, and teleports to Runecrafting altars. Benefits increase with additional pieces of the Wicked robes set.">
+        <img src="hood.png" alt="Wicked Hood" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="vis-wax">
+      <button class="task-btn" data-info="Use the Rune Goldberg Machine in the Runecrafting Guild to create Vis Wax daily, which can be used to extend or reroll daily challenges.">
+        <img src="wax.png" alt="Vis Wax" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="buckets-of-slime">
+      <button class="task-btn" data-info="Collect buckets of slime from Robin in Port Phasmatys after completing the Morytania tasks to aid in Prayer training.">
+        <img src="slime.png" alt="Buckets of Slime" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="nemi-forest">
+      <button class="task-btn" data-info="Explore the Nemi Forest on Mazcab daily to find hidden treasures and gain experience in various skills.">
+        <img src="forest.png" alt="Nemi Forest" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="mine-sandstone">
+      <button class="task-btn" data-info="Mine red sandstone near Sophanem to craft into potion flasks. Completion of the elite Desert tasks increases the daily limit.">
+        <img src="sandstone.png" alt="Mine Sandstone" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="gorajo-dungeon">
+      <button class="task-btn" data-info="Enter the Gorajo resource dungeon daily to collect resources and gain experience in various skills.">
+        <img src="gorajo.png" alt="Gorajo Dungeon" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="reaper-task">
+      <button class="task-btn" data-info="Speak to Death in Draynor Village to receive a daily Reaper task, challenging you to defeat specific bosses for rewards.">
+        <img src="reaper.png" alt="Reaper Task" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="travelling-merchant">
+      <button class="task-btn" data-info="Visit the Travelling Merchant's Shop in the Deep Sea Fishing hub to purchase rare and useful items.">
+        <img src="merchant.png" alt="Travelling Merchant" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="daily-challenges">
+      <button class="task-btn" data-info="Complete daily challenges assigned based on your skills to earn experience and rewards. Members can extend or reroll challenges using Vis Wax.">
+        <img src="daily.png" alt="Daily Challenges" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="soul-obelisk">
+      <button class="task-btn" data-info="Visit the Soul Obelisk in the Wilderness to earn Divination energy and experience. Beware of PvP encounters.">
+        <img src="soul.png" alt="Soul Obelisk" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="city-of-um-free-supplies">
+      <button class="task-btn" data-info="Collect free supplies from the City of Um daily to aid in Archaeology training.">
+        <img src="um.png" alt="City of Um Supplies" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+  </ul>
+</div>
 
-    <!-- Weekly Tasks -->
-    <div id="weekly-tasks" class="tab-content">
-      <h2>Weekly Tasks</h2>
-      <ul>
-        <li class="task" data-task="herby-werby">
-          <button class="task-btn">
-            <img src="herby.jfif" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="penguin-hide-and-seek">
-          <button class="task-btn">
-            <img src="hide.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="tears-of-guthix">
-          <button class="task-btn">
-            <img src="tears.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="circus">
-          <button class="task-btn">
-            <img src="circus.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="managing-miscellania">
-          <button class="task-btn">
-            <img src="misc.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="agoroth">
-          <button class="task-btn">
-            <img src="agoroth.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="familiarisation">
-          <button class="task-btn">
-            <img src="fam.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="fort-forinthry">
-          <button class="task-btn">
-            <img src="fort.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="totems-anachronia">
-          <button class="task-btn">
-            <img src="totem.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="thalmunds-wares">
-          <button class="task-btn">
-            <img src="thal.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="water-filtration-system">
-          <button class="task-btn">
-            <img src="water.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="megs-questions">
-          <button class="task-btn">
-            <img src="meg.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          
-      </li>
-      </ul>
-    </div>
+
+<!-- Weekly Tasks -->
+<div id="weekly-tasks" class="tab-content">
+  <h2>Weekly Tasks</h2>
+  <ul>
+    <li class="task" data-task="herby-werby">
+      <button class="task-btn" data-info="Participate in the Herby Werby Distraction and Diversion weekly to help the jadinkos by sacrificing herbs for Firemaking and Herblore XP.">
+        <img src="herby.jfif" alt="Herby Werby" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="penguin-hide-and-seek">
+      <button class="task-btn" data-info="Find penguins hidden around Gielinor to earn Penguin Points, which can be exchanged for XP lamps or coins.">
+        <img src="hide.png" alt="Penguin Hide and Seek" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="tears-of-guthix">
+      <button class="task-btn" data-info="Visit the Tears of Guthix cave weekly to collect tears, providing XP in your lowest skill. Requires completion of the Tears of Guthix quest.">
+        <img src="tears.png" alt="Tears of Guthix" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="circus">
+      <button class="task-btn" data-info="Participate in the Balthazar Beauregard's Big Top Bonanza to earn experience in Agility, Magic, and Ranged by performing tricks.">
+        <img src="circus.png" alt="Circus" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="managing-miscellania">
+      <button class="task-btn" data-info="Collect your weekly resources from Managing Miscellania. Ensure your workers are fully stocked for optimal rewards.">
+        <img src="misc.png" alt="Managing Miscellania" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="agoroth">
+      <button class="task-btn" data-info="Defeat Agoroth in the Shadow Reef once a week for rewards and XP. Requires level 60 Slayer.">
+        <img src="agoroth.png" alt="Agoroth" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="familiarisation">
+      <button class="task-btn" data-info="Complete Familiarisation for Summoning shards or triple charm drops while training Summoning.">
+        <img src="fam.png" alt="Familiarisation" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="fort-forinthry">
+      <button class="task-btn" data-info="Complete weekly activities at the Fort Forinthry for Construction and resource rewards.">
+        <img src="fort.png" alt="Fort Forinthry" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="totems-anachronia">
+      <button class="task-btn" data-info="Collect Totem pieces on Anachronia weekly to complete Totems for various buffs.">
+        <img src="totem.png" alt="Totems Anachronia" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="thalmunds-wares">
+      <button class="task-btn" data-info="Visit Thalmund's Wares weekly for useful items and resources. Requires access to Warforge.">
+        <img src="thal.png" alt="Thalmund's Wares" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="water-filtration-system">
+      <button class="task-btn" data-info="Maintain the Water Filtration System weekly in Het's Oasis for farming resources and experience.">
+        <img src="water.png" alt="Water Filtration System" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="megs-questions">
+      <button class="task-btn" data-info="Answer Meg's weekly questions in the Player-Owned Ports for a chance at XP or item rewards.">
+        <img src="meg.png" alt="Meg's Questions" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+  </ul>
+</div>
+
 
     <!-- Monthly Tasks -->
-    <div id="monthly-tasks" class="tab-content">
-      <h2>Monthly Tasks</h2>
-      <ul>
-        <li class="task" data-task="troll-invasion">
-          <button class="task-btn">
-            <img src="troll.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="giant-oyster">
-          <button class="task-btn">
-            <img src="oyster.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="god-statues">
-          <button class="task-btn">
-            <img src="god.png" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-        <li class="task" data-task="effigy-incubator">
-          <button class="task-btn">
-            <img src="inc.jfif" alt="Smithing" class="task-image">
-            <span class="check-mark">✔</span>
-        </button>          </li>
-      </ul>
-    </div>
+<!-- Monthly Tasks -->
+<div id="monthly-tasks" class="tab-content">
+  <h2>Monthly Tasks</h2>
+  <ul>
+    <li class="task" data-task="troll-invasion">
+      <button class="task-btn" data-info="Defend against waves of trolls in Troll Invasion to earn bonus XP in a skill of your choice.">
+        <img src="troll.png" alt="Troll Invasion" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="giant-oyster">
+      <button class="task-btn" data-info="Feed the Giant Oyster monthly to earn XP in Fishing and Farming and a chance to obtain Treasure Trail rewards.">
+        <img src="oyster.png" alt="Giant Oyster" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="god-statues">
+      <button class="task-btn" data-info="Construct God Statues around Gielinor to earn Construction and Prayer or Slayer XP.">
+        <img src="god.png" alt="God Statues" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+    <li class="task" data-task="effigy-incubator">
+      <button class="task-btn" data-info="Participate in the Effigy Incubator D&D monthly to create effigies and earn Crafting, Smithing, or Runecrafting XP.">
+        <img src="inc.jfif" alt="Effigy Incubator" class="task-image">
+        <span class="check-mark">✔</span>
+      </button>
+    </li>
+  </ul>
+</div>
+
   </div>
   </div>
   </main>
